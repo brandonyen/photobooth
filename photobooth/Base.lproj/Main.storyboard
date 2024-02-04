@@ -22,7 +22,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bdi-bU-r7e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="809" y="4"/>
+            <point key="canvasLocation" x="21" y="834"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -51,7 +51,6 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Connect"/>
                                 <connections>
                                     <action selector="connnectToCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aDd-Q9-1QM"/>
-                                    <segue destination="UK5-tO-1jW" kind="presentation" identifier="didConnectToCameraSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="awK-qE-iqE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -59,13 +58,15 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
+                        <outlet property="connectButton" destination="mIf-RV-tqs" id="heW-EU-RKw"/>
                         <outlet property="ipAddress" destination="aWE-Zh-0XD" id="D1J-D9-FU4"/>
                         <outlet property="portNumber" destination="Qc6-wj-4nO" id="meh-Hu-1Ro"/>
+                        <segue destination="UK5-tO-1jW" kind="modal" identifier="didConnectToCamera" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="gR9-v9-wYA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20.847457627118644" y="3.6585365853658538"/>
+            <point key="canvasLocation" x="21" y="23"/>
         </scene>
     </scenes>
     <resources>
