@@ -17,6 +17,7 @@
 		AF2A65772B6DF74400CAA35A /* photoboothTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65762B6DF74400CAA35A /* photoboothTests.swift */; };
 		AF2A65812B6DF74400CAA35A /* photoboothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65802B6DF74400CAA35A /* photoboothUITests.swift */; };
 		AF2A65832B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */; };
+		AF2D3D3B2B6F5B2000505951 /* mainPhotoboothUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2D3D3A2B6F5B2000505951 /* mainPhotoboothUI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		AF2A657C2B6DF74400CAA35A /* photoboothUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = photoboothUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2A65802B6DF74400CAA35A /* photoboothUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoboothUITests.swift; sourceTree = "<group>"; };
 		AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoboothUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AF2D3D3A2B6F5B2000505951 /* mainPhotoboothUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainPhotoboothUI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				AF2A656A2B6DF74400CAA35A /* LaunchScreen.storyboard */,
 				AF2A656D2B6DF74400CAA35A /* Info.plist */,
 				AF2A65652B6DF74300CAA35A /* photobooth.xcdatamodeld */,
+				AF2D3D3A2B6F5B2000505951 /* mainPhotoboothUI.swift */,
 			);
 			path = photobooth;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 			files = (
 				AF2A65612B6DF74300CAA35A /* ViewController.swift in Sources */,
 				AF2A65672B6DF74300CAA35A /* photobooth.xcdatamodeld in Sources */,
+				AF2D3D3B2B6F5B2000505951 /* mainPhotoboothUI.swift in Sources */,
 				AF2A655D2B6DF74300CAA35A /* AppDelegate.swift in Sources */,
 				AF2A655F2B6DF74300CAA35A /* SceneDelegate.swift in Sources */,
 			);
