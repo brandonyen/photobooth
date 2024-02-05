@@ -20,7 +20,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func connnectToCamera(_ sender: UIButton) {
-        
         let url = URL(string: "http://" + ipAddress.text! + ":" + portNumber.text! + "/ccapi")!
         let task = URLSession.shared.dataTask(with: url) {
             data, response, error in
