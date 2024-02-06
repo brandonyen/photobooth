@@ -9,21 +9,22 @@ import UIKit
 import Foundation
 import AVFoundation
 
-struct Wrapper: Codable {
-    let storagelist: [storagelist]
+struct urlStruct: Codable {
+    let url: [String]
 }
 
-struct storagelist: Codable {
-    let name: String
-    let url: String
-    let accesscapability: String
-    let maxsize: Int
-    let spacesize: Int
-    let contentsnumber: Int
+struct pageNumberStruct: Codable {
+    let contentsnumber: Int!
+    let pagenumber: Int!
 }
 
 class mainPhotoboothUI: UIViewController {
+    @IBOutlet var liveViewImage: UIImageView!
+    @IBOutlet var liveViewImage2: UIImageView!
+    @IBOutlet var liveViewImage3: UIImageView!
+    @IBOutlet var liveViewImage4: UIImageView!
     @IBOutlet var previewView: UIView!
+    @IBOutlet var startButton: UIButton!
     var ipAddress: String!
     var portNumber: String!
     var videoDataOutput: AVCaptureVideoDataOutput!
@@ -31,14 +32,139 @@ class mainPhotoboothUI: UIViewController {
     var previewLayer: AVCaptureVideoPreviewLayer!
     var captureDevice: AVCaptureDevice!
     let session = AVCaptureSession()
+    var didStartPhotoboothSession: Bool = false
+    var liveViewImageArray: [UIImageView] = []
+    var countdownTimer: Timer!
+    var latestImageHTTPPath: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        previewView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
         previewView.contentMode = UIView.ContentMode.scaleAspectFill
         view.addSubview(previewView)
         self.setupAVCapture()
+        Task {
+            do {
+                try await print(getLatestImagePathFromCamera())
+            }
+            catch {
+                print(error)
+            }
+        }
+        
     }
+    
+    @IBAction func photoboothEventHandler(_ sender: Any) {
+        if !didStartPhotoboothSession {
+            didStartPhotoboothSession = true
+            startButton.setTitle("Cancel", for: .normal)
+            startButton.setTitleColor(.systemRed, for: .normal)
+            startPhotoboothSequence()
+        }
+        else {
+            didStartPhotoboothSession = false
+            startButton.setTitle("Start", for: .normal)
+            startButton.setTitleColor(.systemGreen, for: .normal)
+            // pause timer
+            // clear timer label text
+            // clear uiimageview array
+        }
+    }
+    
+    func getLatestImagePathFromCamera() async throws -> String {
+        var folderHTTPPath: String!
+        var returnedValue: String!
+        let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/contents/sd")!
+        let (data, _) = try await URLSession.shared.data(from: url)
+        do {
+            let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
+            folderHTTPPath = tasks.url[tasks.url.count - 1]
+            let url = URL(string: folderHTTPPath + "?kind=number")!
+            let (data, _) = try await URLSession.shared.data(from: url)
+            do {
+                let tasks = try JSONDecoder().decode(pageNumberStruct.self, from: data)
+                let url = URL(string: folderHTTPPath + "?page=" + String(tasks.pagenumber!))!
+                let (data, _) = try await URLSession.shared.data(from: url)
+                do {
+                    let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
+                    returnedValue = tasks.url[tasks.url.count - 1]
+                }
+                catch {
+                    print(error)
+                }
+            }
+            catch {
+                print(error)
+            }
+        }
+        catch {
+            print(error)
+        }
+        
+        return returnedValue
+    }
+    
+    /*func getLatestImagePathFromCamera() {
+        var folderHTTPPath: String!
+        let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/contents/sd")!
+        let task = URLSession.shared.dataTask(with: url) {
+            data, response, error in
+            
+            if let data = data {
+                do {
+                    let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
+                    folderHTTPPath = tasks.url[tasks.url.count - 1]
+                    let url2 = URL(string: folderHTTPPath + "?kind=number")!
+                    let task2 = URLSession.shared.dataTask(with: url2) {
+                        data, response, error in
+                        
+                        if let data = data {
+                            do {
+                                let tasks = try JSONDecoder().decode(pageNumberStruct.self, from: data)
+                                let url3 = URL(string: folderHTTPPath + "?page=" + String(tasks.pagenumber!))!
+                                let task3 = URLSession.shared.dataTask(with: url3) {
+                                    data, response, error in
+                                    
+                                    if let data = data {
+                                        do {
+                                            let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
+                                            self.latestImageHTTPPath = String(tasks.url[tasks.url.count - 1])
+                                        }
+                                        catch {
+                                            print(error)
+                                        }
+                                    }
+                                }
+                                task3.resume()
+                            }
+                            catch {
+                                print(error)
+                            }
+                        }
+                    }
+                    task2.resume()
+                }
+                catch {
+                    print(error)
+                }
+            }
+        }
+        task.resume()
+        
+        /*
+        let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/contents/sd/100CANON/IMG_0223.CR3?kind=thumbnail")!
+        let task = URLSession.shared.dataTask(with: url) {
+            data, response, error in
+            
+            if let data = data {
+                DispatchQueue.main.async {
+                    self.liveViewImage.image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
+                }
+            }
+        }
+        task.resume()
+        */
+    }
+     */
     
     func startPhotoboothSequence() {
         let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/shooting/liveview/flip")!
@@ -47,7 +173,10 @@ class mainPhotoboothUI: UIViewController {
             
             if let data = data {
                 DispatchQueue.main.async {
-//                    self.liveViewImage.image = UIImage(data: data)
+                    self.liveViewImage.image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
+                    self.liveViewImage2.image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
+                    self.liveViewImage3.image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
+                    self.liveViewImage4.image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
                 }
             }
         }
