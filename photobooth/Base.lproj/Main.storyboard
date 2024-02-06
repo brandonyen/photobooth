@@ -19,6 +19,15 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MYr-ex-q37">
                                 <rect key="frame" x="0.0" y="73" width="820" height="867"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4Z-MO-Mny">
+                                        <rect key="frame" x="229" y="342" width="362" height="182"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="90"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uTd-6P-i62">
@@ -62,6 +71,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="SMX-0C-Fjv"/>
                     <connections>
+                        <outlet property="countdownLabel" destination="w4Z-MO-Mny" id="UXN-gm-9LN"/>
                         <outlet property="liveViewImage" destination="9ay-1D-Zgk" id="tAJ-Dy-Oc8"/>
                         <outlet property="liveViewImage2" destination="zsM-58-2KE" id="Mej-NG-4Dj"/>
                         <outlet property="liveViewImage3" destination="fco-cu-eW3" id="zEI-zY-bEa"/>
