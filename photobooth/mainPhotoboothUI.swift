@@ -32,7 +32,6 @@ class mainPhotoboothUI: UIViewController {
     var previewLayer: AVCaptureVideoPreviewLayer!
     var captureDevice: AVCaptureDevice!
     let session = AVCaptureSession()
-    var didStartPhotoboothSession: Bool = false
     var liveViewImageArray: [UIImageView] = []
     var countdownTimer: Timer!
     
@@ -43,7 +42,7 @@ class mainPhotoboothUI: UIViewController {
         self.setupAVCapture()
         Task {
             do {
-                try await print(getLatestImagePathFromCamera())
+                try await startPhotoboothSequence()
             }
             catch {
                 print(error)
@@ -52,19 +51,13 @@ class mainPhotoboothUI: UIViewController {
     }
     
     @IBAction func photoboothEventHandler(_ sender: Any) {
-        if !didStartPhotoboothSession {
-            didStartPhotoboothSession = true
+        if startButton.titleLabel?.text == "Start" {
             startButton.setTitle("Cancel", for: .normal)
             startButton.setTitleColor(.systemRed, for: .normal)
-            startPhotoboothSequence()
-        }
+        } 
         else {
-            didStartPhotoboothSession = false
             startButton.setTitle("Start", for: .normal)
             startButton.setTitleColor(.systemGreen, for: .normal)
-            // pause timer
-            // clear timer label text
-            // clear uiimageview array
         }
     }
     
@@ -85,37 +78,23 @@ class mainPhotoboothUI: UIViewController {
                 do {
                     let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
                     returnedValue = tasks.url[tasks.url.count - 1]
-                }
-                catch {
+                } catch {
                     print(error)
                 }
-            }
-            catch {
+            } catch {
                 print(error)
             }
-        }
-        catch {
+        } catch {
             print(error)
         }
         
         return returnedValue
     }
     
-    func startPhotoboothSequence() {
-        let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/shooting/liveview/flip")!
-        let task = URLSession.shared.dataTask(with: url) {
-            data, response, error in
-            
-            if let data = data {
-                DispatchQueue.main.async {
-                    self.liveViewImage.image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
-                    self.liveViewImage2.image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
-                    self.liveViewImage3.image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
-                    self.liveViewImage4.image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
-                }
-            }
-        }
-        task.resume()
+    func startPhotoboothSequence() async throws {
+        let url = URL(string: try await getLatestImagePathFromCamera() + "?kind=thumbnail")!
+        let (data, _) = try await URLSession.shared.data(from: url)
+        liveViewImage.image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
     }
 }
 
