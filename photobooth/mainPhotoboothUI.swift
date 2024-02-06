@@ -35,7 +35,6 @@ class mainPhotoboothUI: UIViewController {
     var didStartPhotoboothSession: Bool = false
     var liveViewImageArray: [UIImageView] = []
     var countdownTimer: Timer!
-    var latestImageHTTPPath: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +49,6 @@ class mainPhotoboothUI: UIViewController {
                 print(error)
             }
         }
-        
     }
     
     @IBAction func photoboothEventHandler(_ sender: Any) {
@@ -102,69 +100,6 @@ class mainPhotoboothUI: UIViewController {
         
         return returnedValue
     }
-    
-    /*func getLatestImagePathFromCamera() {
-        var folderHTTPPath: String!
-        let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/contents/sd")!
-        let task = URLSession.shared.dataTask(with: url) {
-            data, response, error in
-            
-            if let data = data {
-                do {
-                    let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
-                    folderHTTPPath = tasks.url[tasks.url.count - 1]
-                    let url2 = URL(string: folderHTTPPath + "?kind=number")!
-                    let task2 = URLSession.shared.dataTask(with: url2) {
-                        data, response, error in
-                        
-                        if let data = data {
-                            do {
-                                let tasks = try JSONDecoder().decode(pageNumberStruct.self, from: data)
-                                let url3 = URL(string: folderHTTPPath + "?page=" + String(tasks.pagenumber!))!
-                                let task3 = URLSession.shared.dataTask(with: url3) {
-                                    data, response, error in
-                                    
-                                    if let data = data {
-                                        do {
-                                            let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
-                                            self.latestImageHTTPPath = String(tasks.url[tasks.url.count - 1])
-                                        }
-                                        catch {
-                                            print(error)
-                                        }
-                                    }
-                                }
-                                task3.resume()
-                            }
-                            catch {
-                                print(error)
-                            }
-                        }
-                    }
-                    task2.resume()
-                }
-                catch {
-                    print(error)
-                }
-            }
-        }
-        task.resume()
-        
-        /*
-        let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/contents/sd/100CANON/IMG_0223.CR3?kind=thumbnail")!
-        let task = URLSession.shared.dataTask(with: url) {
-            data, response, error in
-            
-            if let data = data {
-                DispatchQueue.main.async {
-                    self.liveViewImage.image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
-                }
-            }
-        }
-        task.resume()
-        */
-    }
-     */
     
     func startPhotoboothSequence() {
         let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/shooting/liveview/flip")!
