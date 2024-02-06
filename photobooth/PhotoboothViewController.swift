@@ -1,5 +1,5 @@
 //
-//  mainPhotoboothUI.swift
+//  PhotoboothViewController.swift
 //  photobooth
 //
 //  Created by Brandon Yen on 2/4/24.
@@ -22,7 +22,7 @@ struct Message: Encodable {
     let af: Bool
 }
 
-class mainPhotoboothUI: UIViewController {
+class PhotoboothViewController: UIViewController {
     @IBOutlet var startButton: UIButton!
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var nextButton: UIButton!
@@ -70,7 +70,7 @@ class mainPhotoboothUI: UIViewController {
                     print(error)
                 }
             }
-        } 
+        }
         else if !photoboothSessionInProgress && finishedPhotoboothSession {
             photoboothSessionInProgress = true
             finishedPhotoboothSession = false
@@ -108,7 +108,9 @@ class mainPhotoboothUI: UIViewController {
 
     @IBAction func nextEventHandler(_ sender: Any) {
         if finishedPhotoboothSession {
-            print("finished")
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "didFinishPhotoboothSession", sender: nil)
+            }
         } else {
             
         }
@@ -156,7 +158,7 @@ class mainPhotoboothUI: UIViewController {
             try await takePicture()
             let cameraDelay = 1
             try await Task.sleep(nanoseconds: UInt64(1000000000 * cameraDelay))
-            let url = URL(string: try await getLatestImagePathFromCamera() + "?kind=thumbnail")!
+            let url = URL(string: try await getLatestImagePathFromCamera() + "?kind=display")!
             let (data, _) = try await URLSession.shared.data(from: url)
             liveViewImageArray[i].image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
         }
@@ -168,7 +170,7 @@ class mainPhotoboothUI: UIViewController {
         cancelButton.tintColor = UIColor.systemGray
         nextButton.tintColor = UIColor.systemBlue
     }
-    
+
     func takePicture() async throws {
         let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/shooting/control/shutterbutton")!
         var request = URLRequest(url: url)
@@ -183,9 +185,19 @@ class mainPhotoboothUI: UIViewController {
             print(error)
         }
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is PreviewViewController {
+            let destinationVC = segue.destination as! PreviewViewController
+            destinationVC.ipAddress = ipAddress
+            destinationVC.portNumber = portNumber
+            let imageArray: [UIImage] = [liveViewImageArray[0].image!,liveViewImageArray[1].image!,liveViewImageArray[2].image!,liveViewImageArray[3].image!]
+            destinationVC.imageArray = imageArray
+        }
+    }
 }
 
-extension mainPhotoboothUI: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension PhotoboothViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func setupAVCapture() {
         session.sessionPreset = AVCaptureSession.Preset.vga640x480
         guard let device = AVCaptureDevice

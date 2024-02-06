@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! mainPhotoboothUI
+        let destinationVC = segue.destination as! PhotoboothViewController
         destinationVC.ipAddress = ipAddress.text!
         destinationVC.portNumber = portNumber.text!
     }
