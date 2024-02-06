@@ -23,12 +23,14 @@ struct Message: Encodable {
 }
 
 class mainPhotoboothUI: UIViewController {
+    @IBOutlet var startButton: UIButton!
+    @IBOutlet var cancelButton: UIButton!
+    @IBOutlet var nextButton: UIButton!
     @IBOutlet var liveViewImage: UIImageView!
     @IBOutlet var liveViewImage2: UIImageView!
     @IBOutlet var liveViewImage3: UIImageView!
     @IBOutlet var liveViewImage4: UIImageView!
     @IBOutlet var previewView: UIView!
-    @IBOutlet var startButton: UIButton!
     @IBOutlet var countdownLabel: UILabel!
     var ipAddress: String!
     var portNumber: String!
@@ -40,21 +42,26 @@ class mainPhotoboothUI: UIViewController {
     var liveViewImageArray: [UIImageView]!
     var countdownTimer: Timer!
     var currentTask: Task<(), Never>!
+    var photoboothSessionInProgress: Bool = false
+    var finishedPhotoboothSession: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        countdownLabel.text = ""
-        startButton.titleLabel?.text = "Start"
         previewView.contentMode = UIView.ContentMode.scaleAspectFill
         view.addSubview(previewView)
+        view.addSubview(countdownLabel)
         self.setupAVCapture()
         liveViewImageArray = [liveViewImage, liveViewImage2, liveViewImage3, liveViewImage4]
     }
     
     @IBAction func photoboothEventHandler(_ sender: Any) {
-        if startButton.titleLabel?.text == "Start" {
-            startButton.setTitle("Cancel", for: .normal)
-            startButton.setTitleColor(.systemRed, for: .normal)
+        if !photoboothSessionInProgress && !finishedPhotoboothSession {
+            photoboothSessionInProgress = true
+            for i in 0...3 {
+                liveViewImageArray[i].image = nil
+            }
+            startButton.tintColor = UIColor.systemGray
+            cancelButton.tintColor = UIColor.systemRed
             currentTask = Task {
                 do {
                     try await startPhotoboothSequence()
@@ -63,18 +70,50 @@ class mainPhotoboothUI: UIViewController {
                     print(error)
                 }
             }
-        }
-        else {
-            currentTask.cancel()
-            startButton.setTitle("Start", for: .normal)
-            startButton.setTitleColor(.systemGreen, for: .normal)
-            countdownLabel.text = ""
+        } 
+        else if !photoboothSessionInProgress && finishedPhotoboothSession {
+            photoboothSessionInProgress = true
+            finishedPhotoboothSession = false
+            nextButton.tintColor = UIColor.systemGray
             for i in 0...3 {
                 liveViewImageArray[i].image = nil
             }
+            startButton.setTitle("Start", for: .normal)
+            startButton.tintColor = UIColor.systemGray
+            cancelButton.tintColor = UIColor.systemRed
+            currentTask = Task {
+                do {
+                    try await startPhotoboothSequence()
+                }
+                catch {
+                    print(error)
+                }
+            }
+        } else {
+            
         }
     }
+    
+    @IBAction func cancelEventHandler(_ sender: Any) {
+            if photoboothSessionInProgress {
+                currentTask.cancel()
+                photoboothSessionInProgress = false
+                startButton.tintColor = UIColor.systemGreen
+                cancelButton.tintColor = UIColor.systemGray
+                countdownLabel.text = ""
+            } else {
+                
+            }
+    }
 
+    @IBAction func nextEventHandler(_ sender: Any) {
+        if finishedPhotoboothSession {
+            print("finished")
+        } else {
+            
+        }
+    }
+    
     func getLatestImagePathFromCamera() async throws -> String {
         var folderHTTPPath: String!
         var returnedValue: String!
@@ -107,11 +146,13 @@ class mainPhotoboothUI: UIViewController {
     
     func startPhotoboothSequence() async throws {
         for i in 0...3 {
+            countdownLabel.font = countdownLabel.font.withSize(90)
             for i in 1...5 {
                 countdownLabel.text = String(abs(i-6))
                 try await Task.sleep(nanoseconds: UInt64(1000000000))
             }
-            countdownLabel.text = ""
+            countdownLabel.font = countdownLabel.font.withSize(50)
+            countdownLabel.text = "Taking photo " + String(i+1) + "/4..."
             try await takePicture()
             let cameraDelay = 1
             try await Task.sleep(nanoseconds: UInt64(1000000000 * cameraDelay))
@@ -119,6 +160,13 @@ class mainPhotoboothUI: UIViewController {
             let (data, _) = try await URLSession.shared.data(from: url)
             liveViewImageArray[i].image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
         }
+        countdownLabel.text = ""
+        photoboothSessionInProgress = false
+        finishedPhotoboothSession = true
+        startButton.setTitle("Retake", for: .normal)
+        startButton.tintColor = UIColor.systemGreen
+        cancelButton.tintColor = UIColor.systemGray
+        nextButton.tintColor = UIColor.systemBlue
     }
     
     func takePicture() async throws {
