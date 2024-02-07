@@ -164,7 +164,7 @@
                         <outlet property="connectButton" destination="mIf-RV-tqs" id="heW-EU-RKw"/>
                         <outlet property="ipAddress" destination="aWE-Zh-0XD" id="D1J-D9-FU4"/>
                         <outlet property="portNumber" destination="Qc6-wj-4nO" id="meh-Hu-1Ro"/>
-                        <segue destination="UK5-tO-1jW" kind="modal" identifier="didConnectToCamera" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="gR9-v9-wYA"/>
+                        <segue destination="UK5-tO-1jW" kind="presentation" identifier="didConnectToCamera" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="gR9-v9-wYA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

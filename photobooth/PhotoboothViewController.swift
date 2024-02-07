@@ -22,6 +22,10 @@ struct Message: Encodable {
     let af: Bool
 }
 
+struct responseMessage: Codable {
+    let message: String!
+}
+
 class PhotoboothViewController: UIViewController {
     @IBOutlet var startButton: UIButton!
     @IBOutlet var cancelButton: UIButton!
@@ -32,6 +36,12 @@ class PhotoboothViewController: UIViewController {
     @IBOutlet var liveViewImage4: UIImageView!
     @IBOutlet var previewView: UIView!
     @IBOutlet var countdownLabel: UILabel!
+    var liveViewImageArray: [UIImageView]!
+    var currentTask: Task<(), Never>!
+    var photoboothSessionInProgress: Bool = false
+    var finishedPhotoboothSession: Bool = false
+    
+    // Declaring variables for camera live view
     var ipAddress: String!
     var portNumber: String!
     var videoDataOutput: AVCaptureVideoDataOutput!
@@ -39,11 +49,6 @@ class PhotoboothViewController: UIViewController {
     var previewLayer: AVCaptureVideoPreviewLayer!
     var captureDevice: AVCaptureDevice!
     let session = AVCaptureSession()
-    var liveViewImageArray: [UIImageView]!
-    var countdownTimer: Timer!
-    var currentTask: Task<(), Never>!
-    var photoboothSessionInProgress: Bool = false
-    var finishedPhotoboothSession: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,8 +94,6 @@ class PhotoboothViewController: UIViewController {
                     print(error)
                 }
             }
-        } else {
-            
         }
     }
     
@@ -101,8 +104,6 @@ class PhotoboothViewController: UIViewController {
                 startButton.tintColor = UIColor.systemGreen
                 cancelButton.tintColor = UIColor.systemGray
                 countdownLabel.text = ""
-            } else {
-                
             }
     }
 
@@ -111,8 +112,6 @@ class PhotoboothViewController: UIViewController {
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "didFinishPhotoboothSession", sender: nil)
             }
-        } else {
-            
         }
     }
     
@@ -124,15 +123,15 @@ class PhotoboothViewController: UIViewController {
             do {
                 let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
                 folderHTTPPath = tasks.url[tasks.url.count - 1]
-                let url2 = URL(string: folderHTTPPath + "?kind=number")!
-                 let (data2, _) = try await URLSession.shared.data(from: url2)
+                let url = URL(string: folderHTTPPath + "?kind=number")!
+                 let (data, _) = try await URLSession.shared.data(from: url)
                  do {
-                     let tasks2 = try JSONDecoder().decode(pageNumberStruct.self, from: data2)
-                     let url3 = URL(string: folderHTTPPath + "?page=" + String(tasks2.pagenumber!))!
-                     let (data3, _) = try await URLSession.shared.data(from: url3)
+                     let tasks = try JSONDecoder().decode(pageNumberStruct.self, from: data)
+                     let url = URL(string: folderHTTPPath + "?page=" + String(tasks.pagenumber!))!
+                     let (data, _) = try await URLSession.shared.data(from: url)
                      do {
-                         let tasks3 = try JSONDecoder().decode(urlStruct.self, from: data3)
-                         returnedValue = tasks3.url[tasks3.url.count - 1]
+                         let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
+                         returnedValue = tasks.url[tasks.url.count - 1]
                      } catch {
                          print(error)
                      }
@@ -146,6 +145,35 @@ class PhotoboothViewController: UIViewController {
         return returnedValue
     }
     
+    func takePicture() async throws {
+        let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/shooting/control/shutterbutton")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let message = Message(af:true)
+        let data = try! JSONEncoder().encode(message)
+        request.httpBody = data
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let response = response as? HTTPURLResponse {
+                if response.statusCode != 200 {
+                    let tasks = try JSONDecoder().decode(responseMessage.self, from: data)
+                    if tasks.message! == "Out of focus" {
+                        try await takePicture()
+                    } else {
+                        countdownLabel.text = "Error"
+                        photoboothSessionInProgress = false
+                        startButton.tintColor = UIColor.systemGreen
+                        cancelButton.tintColor = UIColor.systemGray
+                        currentTask.cancel()
+                    }
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
     func startPhotoboothSequence() async throws {
         for i in 0...3 {
             countdownLabel.font = countdownLabel.font.withSize(90)
@@ -156,6 +184,7 @@ class PhotoboothViewController: UIViewController {
             countdownLabel.font = countdownLabel.font.withSize(50)
             countdownLabel.text = "Taking photo " + String(i+1) + "/4..."
             try await takePicture()
+            countdownLabel.text = "Please wait..."
             let cameraDelay = 1
             try await Task.sleep(nanoseconds: UInt64(1000000000 * cameraDelay))
             let url = URL(string: try await getLatestImagePathFromCamera() + "?kind=display")!
@@ -169,21 +198,6 @@ class PhotoboothViewController: UIViewController {
         startButton.tintColor = UIColor.systemGreen
         cancelButton.tintColor = UIColor.systemGray
         nextButton.tintColor = UIColor.systemBlue
-    }
-
-    func takePicture() async throws {
-        let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/shooting/control/shutterbutton")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        let message = Message(af:true)
-        let data = try! JSONEncoder().encode(message)
-        request.httpBody = data
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        do {
-            let (_, _) = try await URLSession.shared.data(for: request)
-        } catch {
-            print(error)
-        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
