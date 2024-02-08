@@ -141,7 +141,6 @@ class PhotoboothViewController: UIViewController {
             } catch {
                 print(error)
             }
-        
         return returnedValue
     }
     
