@@ -247,7 +247,7 @@ extension PhotoboothViewController: AVCaptureVideoDataOutputSampleBufferDelegate
             videoDataOutput.connection(with: .video)?.isEnabled = true
 
             previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
-            previewLayer.videoGravity = AVLayerVideoGravity.resizeAspect
+            previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
 
             let rootLayer :CALayer = self.previewView.layer
             rootLayer.masksToBounds=true

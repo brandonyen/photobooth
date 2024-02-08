@@ -20,6 +20,7 @@
 		AF2A65772B6DF74400CAA35A /* photoboothTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65762B6DF74400CAA35A /* photoboothTests.swift */; };
 		AF2A65812B6DF74400CAA35A /* photoboothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65802B6DF74400CAA35A /* photoboothUITests.swift */; };
 		AF2A65832B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */; };
+		AF6BB6862B7486EB00D6E121 /* CafeNightPhotoboothTemplateColor.png in Resources */ = {isa = PBXBuildFile; fileRef = AF6BB6852B7486EB00D6E121 /* CafeNightPhotoboothTemplateColor.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		AF2A657C2B6DF74400CAA35A /* photoboothUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = photoboothUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2A65802B6DF74400CAA35A /* photoboothUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoboothUITests.swift; sourceTree = "<group>"; };
 		AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoboothUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AF6BB6852B7486EB00D6E121 /* CafeNightPhotoboothTemplateColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CafeNightPhotoboothTemplateColor.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		AF2A655B2B6DF74300CAA35A /* photobooth */ = {
 			isa = PBXGroup;
 			children = (
+				AF6BB6852B7486EB00D6E121 /* CafeNightPhotoboothTemplateColor.png */,
 				AF1DE03A2B72754100A74CBC /* CafeNightPhotoboothTemplate.png */,
 				AF2A655C2B6DF74300CAA35A /* AppDelegate.swift */,
 				AF2A655E2B6DF74300CAA35A /* SceneDelegate.swift */,
@@ -244,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF2A656C2B6DF74400CAA35A /* LaunchScreen.storyboard in Resources */,
+				AF6BB6862B7486EB00D6E121 /* CafeNightPhotoboothTemplateColor.png in Resources */,
 				AF1DE03B2B72754100A74CBC /* CafeNightPhotoboothTemplate.png in Resources */,
 				AF2A65692B6DF74400CAA35A /* Assets.xcassets in Resources */,
 				AF2A65642B6DF74300CAA35A /* Main.storyboard in Resources */,

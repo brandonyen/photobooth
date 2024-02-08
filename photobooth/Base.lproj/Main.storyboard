@@ -114,11 +114,21 @@
                                 <rect key="frame" x="103" y="142" width="615" height="896"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6SP-rb-qB0">
+                                <rect key="frame" x="20" y="30" width="62" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                <connections>
+                                    <action selector="backToPhotobooth:" destination="UWI-5W-rSX" eventType="touchUpInside" id="QhZ-ox-g3T"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xqB-wr-tSq"/>
                     </view>
                     <connections>
                         <outlet property="previewImageView" destination="h41-IS-LcC" id="vCD-aQ-EKo"/>
+                        <segue destination="UK5-tO-1jW" kind="presentation" identifier="cancelPreview" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Vkf-Ts-mi4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7n0-e1-WDx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -172,6 +182,9 @@
             <point key="canvasLocation" x="20" y="38"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Vkf-Ts-mi4"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

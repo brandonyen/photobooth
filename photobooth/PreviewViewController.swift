@@ -13,12 +13,24 @@ class PreviewViewController: UIViewController {
     var portNumber: String!
     var imageArray: [UIImage]!
     @IBOutlet var previewImageView: UIImageView!
-    var topImage =  UIImage(named: "CafeNightPhotoboothTemplate.png")
+    var topImage =  UIImage(named: "CafeNightPhotoboothTemplateColor.png")
 
     override func viewDidLoad() {
         super.viewDidLoad()
         Task {
             try await compileImage()
+        }
+    }
+    
+    @IBAction func backToPhotobooth(_ sender: Any) {
+        performSegue(withIdentifier: "cancelPreview", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is PhotoboothViewController {
+            let destinationVC = segue.destination as! PhotoboothViewController
+            destinationVC.ipAddress = ipAddress
+            destinationVC.portNumber = portNumber
         }
     }
     
