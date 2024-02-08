@@ -9,7 +9,6 @@ import UIKit
 import Foundation
 
 class ViewController: UIViewController {
-    
     @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var ipAddress: UITextField!
     @IBOutlet weak var portNumber: UITextField!
