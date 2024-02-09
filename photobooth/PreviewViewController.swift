@@ -15,8 +15,9 @@ class PreviewViewController: UIViewController {
     @IBOutlet var previewImageView: UIImageView!
     var topImage =  UIImage(named: "PhotoboothTemplatePhotocards.png")
     var areaSizeSketch: [CGRect] = [CGRect(x: 174, y: 204, width: 716, height: 1075), CGRect(x: 174, y: 204, width: 716, height: 1075), CGRect(x: 174, y: 204, width: 716, height: 1075), CGRect(x: 174, y: 204, width: 716, height: 1075)]
-    var areaSizeWatercolor: [CGRect] = [CGRect(x: 173, y: 265, width: 716, height: 1074), CGRect(x: 909, y: 265, width: 716, height: 1074), CGRect(x: 173, y: 1360, width: 716, height: 1074), CGRect(x: 909, y: 1360, width: 716, height: 1074)]
     var areaSizeKakao: [CGRect] = [CGRect(x: 220.75, y: 181.84, width: 671, height: 1006), CGRect(x: 909.94, y: 181.84, width: 671, height: 1006), CGRect(x: 220.75, y: 1206.72, width: 671, height: 1006), CGRect(x: 909.94, y: 1206.72, width: 671, height: 1006)]
+    var areaSizeKakao2: [CGRect] = [CGRect(x: 220.75, y: 457.84, width: 671, height: 1006), CGRect(x: 909.94, y: 181.84, width: 671, height: 457.84), CGRect(x: 220.75, y: 1482.72, width: 671, height: 1006), CGRect(x: 909.94, y: 1482.72, width: 671, height: 1006)]
+    var areaSizeKakao3: [CGRect] = [CGRect(x: 219.75, y: 181.84, width: 671, height: 1006), CGRect(x: 908.94, y: 181.84, width: 671, height: 1006), CGRect(x: 219.75, y: 1206.72, width: 671, height: 1006), CGRect(x: 908.94, y: 1206.72, width: 671, height: 1006)]
     var areaSizePhotocards: [CGRect] = [CGRect(x: 160, y: 366, width: 618, height: 928), CGRect(x: 1020, y: 366, width: 618, height: 928), CGRect(x: 160, y: 1495, width: 618, height: 928), CGRect(x: 1020, y: 1495, width: 618, height: 928)]
 
     override func viewDidLoad() {
