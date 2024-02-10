@@ -489,6 +489,7 @@
 				DEVELOPMENT_TEAM = ZLK2NUP7FJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = photobooth/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "App uses bluetooth";
 				INFOPLIST_KEY_NSCameraUsageDescription = "App uses camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -519,6 +520,7 @@
 				DEVELOPMENT_TEAM = ZLK2NUP7FJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = photobooth/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "App uses bluetooth";
 				INFOPLIST_KEY_NSCameraUsageDescription = "App uses camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
