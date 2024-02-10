@@ -27,6 +27,7 @@
 		AFDA1F2B2B76C7F100D76082 /* PhotoboothTemplateSketch.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F2A2B76C7F100D76082 /* PhotoboothTemplateSketch.png */; };
 		AFDA1F2E2B76F8AF00D76082 /* left-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */; };
 		AFDA1F2F2B76F8AF00D76082 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */; };
+		AFDA1F642B776E3700D76082 /* DropboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDA1F632B776E3700D76082 /* DropboxViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		AFDA1F2A2B76C7F100D76082 /* PhotoboothTemplateSketch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateSketch.png; sourceTree = "<group>"; };
 		AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow.png"; sourceTree = "<group>"; };
 		AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow.png"; sourceTree = "<group>"; };
+		AFDA1F632B776E3700D76082 /* DropboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				AF2A65752B6DF74400CAA35A /* photoboothTests */,
 				AF2A657F2B6DF74400CAA35A /* photoboothUITests */,
 				AF2A655A2B6DF74300CAA35A /* Products */,
+				AFDA1F5D2B77604700D76082 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -133,6 +136,7 @@
 				AF2A655E2B6DF74300CAA35A /* SceneDelegate.swift */,
 				AF2A65602B6DF74300CAA35A /* ViewController.swift */,
 				AF2A65622B6DF74300CAA35A /* Main.storyboard */,
+				AFDA1F632B776E3700D76082 /* DropboxViewController.swift */,
 				AF2A65682B6DF74400CAA35A /* Assets.xcassets */,
 				AF2A656A2B6DF74400CAA35A /* LaunchScreen.storyboard */,
 				AF2A656D2B6DF74400CAA35A /* Info.plist */,
@@ -160,6 +164,13 @@
 			path = photoboothUITests;
 			sourceTree = "<group>";
 		};
+		AFDA1F5D2B77604700D76082 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -176,6 +187,8 @@
 			dependencies = (
 			);
 			name = photobooth;
+			packageProductDependencies = (
+			);
 			productName = photobooth;
 			productReference = AF2A65592B6DF74300CAA35A /* photobooth.app */;
 			productType = "com.apple.product-type.application";
@@ -248,6 +261,8 @@
 				Base,
 			);
 			mainGroup = AF2A65502B6DF74300CAA35A;
+			packageReferences = (
+			);
 			productRefGroup = AF2A655A2B6DF74300CAA35A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -305,6 +320,7 @@
 				AF2A655F2B6DF74300CAA35A /* SceneDelegate.swift in Sources */,
 				AF253F9E2B72911F00761A62 /* PhotoboothViewController.swift in Sources */,
 				AF1DE0432B72850A00A74CBC /* PreviewViewController.swift in Sources */,
+				AFDA1F642B776E3700D76082 /* DropboxViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

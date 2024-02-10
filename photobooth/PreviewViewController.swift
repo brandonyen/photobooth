@@ -47,8 +47,8 @@ class PreviewViewController: UIViewController {
         CGRect(x: 1020, y: 1495, width: 618, height: 928)
     ]
     var topImageTemplate: [UIImage] = []
-    var areaSizeArray: [[CGRect]] = []
-    var compiledImageArray: [UIImage] = []
+    var areaSizes: [[CGRect]] = []
+    var compiledImages: [UIImage] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +60,7 @@ class PreviewViewController: UIViewController {
             UIImage(named: "PhotoboothTemplatePhotocards.png")!,
             UIImage(named: "PhotoboothTemplatePhotocards2.png")!,
         ]
-        areaSizeArray = [
+        areaSizes = [
             areaSizeSketch,
             areaSizeKakao,
             areaSizeKakao2,
@@ -82,14 +82,14 @@ class PreviewViewController: UIViewController {
         if newImagePos < 0 {
             newImagePos += 6
         }
-        UIView.transition(with: self.previewImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.previewImageView.image = self.compiledImageArray[newImagePos]}, completion: nil)
+        UIView.transition(with: self.previewImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.previewImageView.image = self.compiledImages[newImagePos]}, completion: nil)
         currentImagePos = newImagePos
         numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
     }
     
     @IBAction func scrollRight(_ sender: Any) {
         let newImagePos = (currentImagePos + 1) % 6
-        UIView.transition(with: self.previewImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.previewImageView.image = self.compiledImageArray[newImagePos]}, completion: nil)
+        UIView.transition(with: self.previewImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.previewImageView.image = self.compiledImages[newImagePos]}, completion: nil)
         currentImagePos = newImagePos
         numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
     }
@@ -116,17 +116,17 @@ class PreviewViewController: UIViewController {
         
         for i in 0...(topImageTemplate.count - 1) {
             UIGraphicsBeginImageContext(size)
-            firstImage.draw(in: areaSizeArray[i][0])
-            secondImage.draw(in: areaSizeArray[i][1])
-            thirdImage.draw(in: areaSizeArray[i][2])
-            fourthImage.draw(in: areaSizeArray[i][3])
+            firstImage.draw(in: areaSizes[i][0])
+            secondImage.draw(in: areaSizes[i][1])
+            thirdImage.draw(in: areaSizes[i][2])
+            fourthImage.draw(in: areaSizes[i][3])
             topImageTemplate[i].draw(in: areaSizeTopImage, blendMode: .normal, alpha: 1)
             let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
             UIGraphicsEndImageContext()
-            compiledImageArray.append(newImage)
+            compiledImages.append(newImage)
         }
         
-        previewImageView.image = compiledImageArray[0]
+        previewImageView.image = compiledImages[0]
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
