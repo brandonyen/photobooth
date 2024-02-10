@@ -25,6 +25,8 @@
 		AFB270702B75F96D0079C181 /* PhotoboothTemplatePhotocards.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB2706B2B75F96D0079C181 /* PhotoboothTemplatePhotocards.png */; };
 		AFB270712B75F96D0079C181 /* PhotoboothTemplatePhotocards2.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB2706C2B75F96D0079C181 /* PhotoboothTemplatePhotocards2.png */; };
 		AFDA1F2B2B76C7F100D76082 /* PhotoboothTemplateSketch.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F2A2B76C7F100D76082 /* PhotoboothTemplateSketch.png */; };
+		AFDA1F2E2B76F8AF00D76082 /* left-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */; };
+		AFDA1F2F2B76F8AF00D76082 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		AFB2706B2B75F96D0079C181 /* PhotoboothTemplatePhotocards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplatePhotocards.png; sourceTree = "<group>"; };
 		AFB2706C2B75F96D0079C181 /* PhotoboothTemplatePhotocards2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplatePhotocards2.png; sourceTree = "<group>"; };
 		AFDA1F2A2B76C7F100D76082 /* PhotoboothTemplateSketch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateSketch.png; sourceTree = "<group>"; };
+		AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow.png"; sourceTree = "<group>"; };
+		AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 		AF2A655B2B6DF74300CAA35A /* photobooth */ = {
 			isa = PBXGroup;
 			children = (
+				AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */,
+				AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */,
 				AFB2706A2B75F96D0079C181 /* PhotoboothTemplateKakao.png */,
 				AFB270692B75F96D0079C181 /* PhotoboothTemplateKakao2.png */,
 				AFB270682B75F96D0079C181 /* PhotoboothTemplateKakao3.png */,
@@ -260,8 +266,10 @@
 			files = (
 				AF2A656C2B6DF74400CAA35A /* LaunchScreen.storyboard in Resources */,
 				AFDA1F2B2B76C7F100D76082 /* PhotoboothTemplateSketch.png in Resources */,
+				AFDA1F2F2B76F8AF00D76082 /* right-arrow.png in Resources */,
 				AFB2706F2B75F96D0079C181 /* PhotoboothTemplateKakao.png in Resources */,
 				AF2A65692B6DF74400CAA35A /* Assets.xcassets in Resources */,
+				AFDA1F2E2B76F8AF00D76082 /* left-arrow.png in Resources */,
 				AFB270702B75F96D0079C181 /* PhotoboothTemplatePhotocards.png in Resources */,
 				AF2A65642B6DF74300CAA35A /* Main.storyboard in Resources */,
 				AFB270712B75F96D0079C181 /* PhotoboothTemplatePhotocards2.png in Resources */,
