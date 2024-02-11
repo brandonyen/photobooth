@@ -42,8 +42,6 @@ class PhotoboothViewController: UIViewController {
     var finishedPhotoboothSession: Bool = false
     
     // Declaring variables for camera live view
-    var ipAddress: String!
-    var portNumber: String!
     var videoDataOutput: AVCaptureVideoDataOutput!
     var videoDataOutputQueue: DispatchQueue!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -202,8 +200,6 @@ class PhotoboothViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is PreviewViewController {
             let destinationVC = segue.destination as! PreviewViewController
-            destinationVC.ipAddress = ipAddress
-            destinationVC.portNumber = portNumber
             let imageArray: [UIImage] = [liveViewImageArray[0].image!,liveViewImageArray[1].image!,liveViewImageArray[2].image!,liveViewImageArray[3].image!]
             destinationVC.imageArray = imageArray
         }

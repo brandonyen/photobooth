@@ -28,6 +28,12 @@
 		AFDA1F2E2B76F8AF00D76082 /* left-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */; };
 		AFDA1F2F2B76F8AF00D76082 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */; };
 		AFDA1F642B776E3700D76082 /* DropboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDA1F632B776E3700D76082 /* DropboxViewController.swift */; };
+		AFDA1F712B7878A000D76082 /* PhotoboothTemplateSketchPreview.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F6B2B7878A000D76082 /* PhotoboothTemplateSketchPreview.png */; };
+		AFDA1F722B7878A000D76082 /* PhotoboothTemplateKakao2Preview.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F6C2B7878A000D76082 /* PhotoboothTemplateKakao2Preview.png */; };
+		AFDA1F732B7878A000D76082 /* PhotoboothTemplatePhotocardsPreview.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F6D2B7878A000D76082 /* PhotoboothTemplatePhotocardsPreview.png */; };
+		AFDA1F742B7878A000D76082 /* PhotoboothTemplatePhotocards2Preview.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F6E2B7878A000D76082 /* PhotoboothTemplatePhotocards2Preview.png */; };
+		AFDA1F752B7878A000D76082 /* PhotoboothTemplateKakao3Preview.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F6F2B7878A000D76082 /* PhotoboothTemplateKakao3Preview.png */; };
+		AFDA1F762B7878A000D76082 /* PhotoboothTemplateKakaoPreview.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F702B7878A000D76082 /* PhotoboothTemplateKakaoPreview.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +79,12 @@
 		AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow.png"; sourceTree = "<group>"; };
 		AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow.png"; sourceTree = "<group>"; };
 		AFDA1F632B776E3700D76082 /* DropboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxViewController.swift; sourceTree = "<group>"; };
+		AFDA1F6B2B7878A000D76082 /* PhotoboothTemplateSketchPreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateSketchPreview.png; sourceTree = "<group>"; };
+		AFDA1F6C2B7878A000D76082 /* PhotoboothTemplateKakao2Preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao2Preview.png; sourceTree = "<group>"; };
+		AFDA1F6D2B7878A000D76082 /* PhotoboothTemplatePhotocardsPreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplatePhotocardsPreview.png; sourceTree = "<group>"; };
+		AFDA1F6E2B7878A000D76082 /* PhotoboothTemplatePhotocards2Preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplatePhotocards2Preview.png; sourceTree = "<group>"; };
+		AFDA1F6F2B7878A000D76082 /* PhotoboothTemplateKakao3Preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao3Preview.png; sourceTree = "<group>"; };
+		AFDA1F702B7878A000D76082 /* PhotoboothTemplateKakaoPreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakaoPreview.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +119,6 @@
 				AF2A65752B6DF74400CAA35A /* photoboothTests */,
 				AF2A657F2B6DF74400CAA35A /* photoboothUITests */,
 				AF2A655A2B6DF74300CAA35A /* Products */,
-				AFDA1F5D2B77604700D76082 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,6 +137,12 @@
 			children = (
 				AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */,
 				AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */,
+				AFDA1F6C2B7878A000D76082 /* PhotoboothTemplateKakao2Preview.png */,
+				AFDA1F6F2B7878A000D76082 /* PhotoboothTemplateKakao3Preview.png */,
+				AFDA1F702B7878A000D76082 /* PhotoboothTemplateKakaoPreview.png */,
+				AFDA1F6E2B7878A000D76082 /* PhotoboothTemplatePhotocards2Preview.png */,
+				AFDA1F6D2B7878A000D76082 /* PhotoboothTemplatePhotocardsPreview.png */,
+				AFDA1F6B2B7878A000D76082 /* PhotoboothTemplateSketchPreview.png */,
 				AFB2706A2B75F96D0079C181 /* PhotoboothTemplateKakao.png */,
 				AFB270692B75F96D0079C181 /* PhotoboothTemplateKakao2.png */,
 				AFB270682B75F96D0079C181 /* PhotoboothTemplateKakao3.png */,
@@ -162,13 +179,6 @@
 				AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */,
 			);
 			path = photoboothUITests;
-			sourceTree = "<group>";
-		};
-		AFDA1F5D2B77604700D76082 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,15 +290,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF2A656C2B6DF74400CAA35A /* LaunchScreen.storyboard in Resources */,
+				AFDA1F742B7878A000D76082 /* PhotoboothTemplatePhotocards2Preview.png in Resources */,
 				AFDA1F2B2B76C7F100D76082 /* PhotoboothTemplateSketch.png in Resources */,
 				AFDA1F2F2B76F8AF00D76082 /* right-arrow.png in Resources */,
+				AFDA1F752B7878A000D76082 /* PhotoboothTemplateKakao3Preview.png in Resources */,
+				AFDA1F732B7878A000D76082 /* PhotoboothTemplatePhotocardsPreview.png in Resources */,
 				AFB2706F2B75F96D0079C181 /* PhotoboothTemplateKakao.png in Resources */,
 				AF2A65692B6DF74400CAA35A /* Assets.xcassets in Resources */,
 				AFDA1F2E2B76F8AF00D76082 /* left-arrow.png in Resources */,
 				AFB270702B75F96D0079C181 /* PhotoboothTemplatePhotocards.png in Resources */,
 				AF2A65642B6DF74300CAA35A /* Main.storyboard in Resources */,
+				AFDA1F712B7878A000D76082 /* PhotoboothTemplateSketchPreview.png in Resources */,
 				AFB270712B75F96D0079C181 /* PhotoboothTemplatePhotocards2.png in Resources */,
 				AFB2706E2B75F96D0079C181 /* PhotoboothTemplateKakao2.png in Resources */,
+				AFDA1F762B7878A000D76082 /* PhotoboothTemplateKakaoPreview.png in Resources */,
+				AFDA1F722B7878A000D76082 /* PhotoboothTemplateKakao2Preview.png in Resources */,
 				AFB2706D2B75F96D0079C181 /* PhotoboothTemplateKakao3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -505,7 +521,6 @@
 				DEVELOPMENT_TEAM = ZLK2NUP7FJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = photobooth/Info.plist;
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "App uses bluetooth";
 				INFOPLIST_KEY_NSCameraUsageDescription = "App uses camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -536,7 +551,6 @@
 				DEVELOPMENT_TEAM = ZLK2NUP7FJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = photobooth/Info.plist;
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "App uses bluetooth";
 				INFOPLIST_KEY_NSCameraUsageDescription = "App uses camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
