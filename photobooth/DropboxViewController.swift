@@ -29,7 +29,7 @@ class DropboxViewController: UIViewController {
     var compiledImages: [UIImage] = []
     var compiledPreviewImages: [UIImage] = []
     var numberToPrintArray: [Int]!
-    var accessToken = "sl.BvYBBxS7qbszl48mK5WJRLpNqWVIC_FhoCZLH6UiNHLXXvPVKn1gnS6k2hih58nekAfo_FUh0senUWb62-UK-3feM8oMsuzP1y9ur7mASs7FRilYxzg1hbh6EByBOIjskNnIA5bLBGpkexY"
+    var accessToken = config.api_key
     var folderName: String!
     @IBOutlet var QRCode: UIImageView!
     @IBOutlet var uploadStatusLabel: UILabel!
