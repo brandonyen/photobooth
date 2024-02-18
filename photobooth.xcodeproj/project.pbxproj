@@ -20,7 +20,6 @@
 		AF2A65812B6DF74400CAA35A /* photoboothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65802B6DF74400CAA35A /* photoboothUITests.swift */; };
 		AF2A65832B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */; };
 		AF338CB72B7ED90B00C1868A /* PrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF338CB62B7ED90B00C1868A /* PrinterViewController.swift */; };
-		AF730B382B82477400105CDE /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF730B372B82477400105CDE /* config.swift */; };
 		AFB2706D2B75F96D0079C181 /* PhotoboothTemplateKakao3.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB270682B75F96D0079C181 /* PhotoboothTemplateKakao3.png */; };
 		AFB2706E2B75F96D0079C181 /* PhotoboothTemplateKakao2.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB270692B75F96D0079C181 /* PhotoboothTemplateKakao2.png */; };
 		AFB2706F2B75F96D0079C181 /* PhotoboothTemplateKakao.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB2706A2B75F96D0079C181 /* PhotoboothTemplateKakao.png */; };
@@ -73,7 +72,6 @@
 		AF2A65802B6DF74400CAA35A /* photoboothUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoboothUITests.swift; sourceTree = "<group>"; };
 		AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoboothUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AF338CB62B7ED90B00C1868A /* PrinterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterViewController.swift; sourceTree = "<group>"; };
-		AF730B372B82477400105CDE /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
 		AF9D22472B81D29000FAF66D /* photobooth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = photobooth.entitlements; sourceTree = "<group>"; };
 		AFB270682B75F96D0079C181 /* PhotoboothTemplateKakao3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao3.png; sourceTree = "<group>"; };
 		AFB270692B75F96D0079C181 /* PhotoboothTemplateKakao2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao2.png; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 				AF2A65622B6DF74300CAA35A /* Main.storyboard */,
 				AF338CB62B7ED90B00C1868A /* PrinterViewController.swift */,
 				AFDA1F632B776E3700D76082 /* DropboxViewController.swift */,
-				AF730B372B82477400105CDE /* config.swift */,
 				AF2A65682B6DF74400CAA35A /* Assets.xcassets */,
 				AF2A656A2B6DF74400CAA35A /* LaunchScreen.storyboard */,
 				AF2A656D2B6DF74400CAA35A /* Info.plist */,
@@ -344,7 +341,6 @@
 				AF2A655D2B6DF74300CAA35A /* AppDelegate.swift in Sources */,
 				AF2A655F2B6DF74300CAA35A /* SceneDelegate.swift in Sources */,
 				AF253F9E2B72911F00761A62 /* PhotoboothViewController.swift in Sources */,
-				AF730B382B82477400105CDE /* config.swift in Sources */,
 				AF1DE0432B72850A00A74CBC /* PreviewViewController.swift in Sources */,
 				AFDA1F642B776E3700D76082 /* DropboxViewController.swift in Sources */,
 			);
