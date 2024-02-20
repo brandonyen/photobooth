@@ -37,6 +37,7 @@ class DropboxViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         uploadStatusLabel.text = "Uploading..."
         folderName = generateDate()
         Task {
@@ -102,52 +103,30 @@ class DropboxViewController: UIViewController {
                 print(error)
             }
         }
-        for i in 0...5 {
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
-            request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
-            request.setValue("{\"autorename\":false,\"mode\":\"add\",\"mute\":false,\"path\":\"/Print/"
-                             + folderName + "/" + String(i) + ".png" +
-                             "\",\"strict_conflict\":false}", forHTTPHeaderField: "Dropbox-API-Arg")
-            let imageData = compiledImages[i].pngData()
-            request.httpBody = imageData
-            do {
-                let (_, response) = try await URLSession.shared.data(for: request)
-                if let response = response as? HTTPURLResponse {
-                    if response.statusCode != 200 {
-                        print("error uploading to dropbox")
-                        print(response)
-                    }
-                }
-            } catch {
-                print(error)
-            }
-        }
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
-        request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
-        request.setValue("{\"autorename\":false,\"mode\":\"add\",\"mute\":false,\"path\":\"/Print/"
-                         + folderName + "/printInfo.txt" +
-                         "\",\"strict_conflict\":false}", forHTTPHeaderField: "Dropbox-API-Arg")
-        var str = ""
-        for i in 0...5 {
-            str.append(String(numberToPrintArray[i]))
-        }
-        let strData = try! JSONEncoder().encode(Int(str))
-        request.httpBody = strData
-        do {
-            let (_, response) = try await URLSession.shared.data(for: request)
-            if let response = response as? HTTPURLResponse {
-                if response.statusCode != 200 {
-                    print("error uploading to dropbox")
-                    print(response)
+                request.httpMethod = "POST"
+                request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+                request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
+                request.setValue("{\"autorename\":false,\"mode\":\"add\",\"mute\":false,\"path\":\"/Print/"
+                                 + folderName + "/printInfo.txt" +
+                                 "\",\"strict_conflict\":false}", forHTTPHeaderField: "Dropbox-API-Arg")
+                var str = ""
+                for i in 0...5 {
+                    str.append(String(numberToPrintArray[i]))
                 }
-            }
-        } catch {
-            print(error)
-        }
+                let strData = try! JSONEncoder().encode(Int(str))
+                request.httpBody = strData
+                do {
+                    let (_, response) = try await URLSession.shared.data(for: request)
+                    if let response = response as? HTTPURLResponse {
+                        if response.statusCode != 200 {
+                            print("error uploading to dropbox")
+                            print(response)
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
     }
     
     func getFolderShareURL() async throws -> String {
@@ -168,6 +147,15 @@ class DropboxViewController: UIViewController {
             let (data, _) = try await URLSession.shared.data(for: request)
             let tasks = try JSONDecoder().decode(FolderShareURLResponseStruct.self, from: data)
             return tasks.url
+        }
+    }
+    
+    func printImages() {
+        for i in 0...5 {
+            let numberToPrint = numberToPrintArray[i]
+            for _ in 0..<numberToPrint {
+                print("printed image " + String(i+1))
+            }
         }
     }
     
