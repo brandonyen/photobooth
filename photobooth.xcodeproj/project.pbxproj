@@ -19,7 +19,6 @@
 		AF2A65772B6DF74400CAA35A /* photoboothTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65762B6DF74400CAA35A /* photoboothTests.swift */; };
 		AF2A65812B6DF74400CAA35A /* photoboothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65802B6DF74400CAA35A /* photoboothUITests.swift */; };
 		AF2A65832B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */; };
-		AF338CB72B7ED90B00C1868A /* PrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF338CB62B7ED90B00C1868A /* PrinterViewController.swift */; };
 		AF730B3A2B824C0500105CDE /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF730B392B824C0500105CDE /* config.swift */; };
 		AFB2706D2B75F96D0079C181 /* PhotoboothTemplateKakao3.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB270682B75F96D0079C181 /* PhotoboothTemplateKakao3.png */; };
 		AFB2706E2B75F96D0079C181 /* PhotoboothTemplateKakao2.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB270692B75F96D0079C181 /* PhotoboothTemplateKakao2.png */; };
@@ -72,9 +71,7 @@
 		AF2A657C2B6DF74400CAA35A /* photoboothUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = photoboothUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2A65802B6DF74400CAA35A /* photoboothUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoboothUITests.swift; sourceTree = "<group>"; };
 		AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoboothUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		AF338CB62B7ED90B00C1868A /* PrinterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterViewController.swift; sourceTree = "<group>"; };
 		AF730B392B824C0500105CDE /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
-		AF9D22472B81D29000FAF66D /* photobooth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = photobooth.entitlements; sourceTree = "<group>"; };
 		AFB270682B75F96D0079C181 /* PhotoboothTemplateKakao3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao3.png; sourceTree = "<group>"; };
 		AFB270692B75F96D0079C181 /* PhotoboothTemplateKakao2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao2.png; sourceTree = "<group>"; };
 		AFB2706A2B75F96D0079C181 /* PhotoboothTemplateKakao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao.png; sourceTree = "<group>"; };
@@ -140,26 +137,11 @@
 		AF2A655B2B6DF74300CAA35A /* photobooth */ = {
 			isa = PBXGroup;
 			children = (
-				AF9D22472B81D29000FAF66D /* photobooth.entitlements */,
-				AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */,
-				AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */,
-				AFDA1F6C2B7878A000D76082 /* PhotoboothTemplateKakao2Preview.png */,
-				AFDA1F6F2B7878A000D76082 /* PhotoboothTemplateKakao3Preview.png */,
-				AFDA1F702B7878A000D76082 /* PhotoboothTemplateKakaoPreview.png */,
-				AFDA1F6E2B7878A000D76082 /* PhotoboothTemplatePhotocards2Preview.png */,
-				AFDA1F6D2B7878A000D76082 /* PhotoboothTemplatePhotocardsPreview.png */,
-				AFDA1F6B2B7878A000D76082 /* PhotoboothTemplateSketchPreview.png */,
-				AFB2706A2B75F96D0079C181 /* PhotoboothTemplateKakao.png */,
-				AFB270692B75F96D0079C181 /* PhotoboothTemplateKakao2.png */,
-				AFB270682B75F96D0079C181 /* PhotoboothTemplateKakao3.png */,
-				AFB2706B2B75F96D0079C181 /* PhotoboothTemplatePhotocards.png */,
-				AFB2706C2B75F96D0079C181 /* PhotoboothTemplatePhotocards2.png */,
-				AFDA1F2A2B76C7F100D76082 /* PhotoboothTemplateSketch.png */,
+				AF2F6DD22B8495D300579628 /* images */,
 				AF2A655C2B6DF74300CAA35A /* AppDelegate.swift */,
 				AF2A655E2B6DF74300CAA35A /* SceneDelegate.swift */,
 				AF2A65602B6DF74300CAA35A /* ViewController.swift */,
 				AF2A65622B6DF74300CAA35A /* Main.storyboard */,
-				AF338CB62B7ED90B00C1868A /* PrinterViewController.swift */,
 				AF730B392B824C0500105CDE /* config.swift */,
 				AFDA1F632B776E3700D76082 /* DropboxViewController.swift */,
 				AF2A65682B6DF74400CAA35A /* Assets.xcassets */,
@@ -187,6 +169,27 @@
 				AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */,
 			);
 			path = photoboothUITests;
+			sourceTree = "<group>";
+		};
+		AF2F6DD22B8495D300579628 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */,
+				AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */,
+				AFDA1F6C2B7878A000D76082 /* PhotoboothTemplateKakao2Preview.png */,
+				AFDA1F6F2B7878A000D76082 /* PhotoboothTemplateKakao3Preview.png */,
+				AFDA1F702B7878A000D76082 /* PhotoboothTemplateKakaoPreview.png */,
+				AFDA1F6E2B7878A000D76082 /* PhotoboothTemplatePhotocards2Preview.png */,
+				AFDA1F6D2B7878A000D76082 /* PhotoboothTemplatePhotocardsPreview.png */,
+				AFDA1F6B2B7878A000D76082 /* PhotoboothTemplateSketchPreview.png */,
+				AFB2706A2B75F96D0079C181 /* PhotoboothTemplateKakao.png */,
+				AFB270692B75F96D0079C181 /* PhotoboothTemplateKakao2.png */,
+				AFB270682B75F96D0079C181 /* PhotoboothTemplateKakao3.png */,
+				AFB2706B2B75F96D0079C181 /* PhotoboothTemplatePhotocards.png */,
+				AFB2706C2B75F96D0079C181 /* PhotoboothTemplatePhotocards2.png */,
+				AFDA1F2A2B76C7F100D76082 /* PhotoboothTemplateSketch.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,7 +342,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF2A65612B6DF74300CAA35A /* ViewController.swift in Sources */,
-				AF338CB72B7ED90B00C1868A /* PrinterViewController.swift in Sources */,
 				AF2A65672B6DF74300CAA35A /* photobooth.xcdatamodeld in Sources */,
 				AF2A655D2B6DF74300CAA35A /* AppDelegate.swift in Sources */,
 				AF2A655F2B6DF74300CAA35A /* SceneDelegate.swift in Sources */,

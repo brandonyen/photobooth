@@ -24,11 +24,15 @@ struct FolderShareURLResponseStruct: Codable {
     var url: String!
 }
 
+let printerURL = URL(string: config.printer_ip)!
+let currentPrinter = UIPrinter(url: printerURL)
+
 class DropboxViewController: UIViewController {
     var imageArray: [UIImage] = []
     var compiledImages: [UIImage] = []
     var compiledPreviewImages: [UIImage] = []
     var numberToPrintArray: [Int]!
+    var imagePrintQueue: [UIImage] = []
     var accessToken = config.api_key
     var folderName: String!
     @IBOutlet var QRCode: UIImageView!
@@ -40,6 +44,7 @@ class DropboxViewController: UIViewController {
 
         uploadStatusLabel.text = "Uploading..."
         folderName = generateDate()
+        addImagesToQueue()
         Task {
             try await upload()
             let string = try await getFolderShareURL()
@@ -47,6 +52,9 @@ class DropboxViewController: UIViewController {
             QRCode.image = try await generateQRCode(from: string)
             uploadStatusLabel.text = "Upload Complete! Printing Images."
             isCompleted = true
+        }
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.printImages(pos: 0, imageQueue: self.imagePrintQueue)
         }
     }
     
@@ -114,7 +122,7 @@ class DropboxViewController: UIViewController {
                 for i in 0...5 {
                     str.append(String(numberToPrintArray[i]))
                 }
-                let strData = try! JSONEncoder().encode(Int(str))
+                let strData = try! JSONEncoder().encode(str)
                 request.httpBody = strData
                 do {
                     let (_, response) = try await URLSession.shared.data(for: request)
@@ -150,13 +158,29 @@ class DropboxViewController: UIViewController {
         }
     }
     
-    func printImages() {
+    func addImagesToQueue() {
         for i in 0...5 {
-            let numberToPrint = numberToPrintArray[i]
-            for _ in 0..<numberToPrint {
-                print("printed image " + String(i+1))
+            for _ in 0..<numberToPrintArray[i] {
+                imagePrintQueue.append(compiledImages[i])
             }
         }
+    }
+    
+    func printImages(pos: Int, imageQueue: [UIImage]) {
+        let printCompletionHandler: UIPrintInteractionController.CompletionHandler = { (controller, success, error) -> Void in
+            if success && pos + 1 < imageQueue.count {
+                self.printImages(pos: pos+1, imageQueue: imageQueue)
+                    }
+                }
+        
+        let printController = UIPrintInteractionController.shared
+        let printInfo = UIPrintInfo.printInfo()
+        printInfo.outputType = .photo
+        printInfo.jobName = "Printing"
+        printController.printInfo = printInfo
+        printController.printingItem = imageQueue[pos]
+        
+        printController.print(to: currentPrinter, completionHandler: printCompletionHandler)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

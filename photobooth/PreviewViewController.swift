@@ -21,10 +21,10 @@ class PreviewViewController: UIViewController {
         CGRect(x: 910, y: 1298.66, width: 716, height: 1075)
     ]
     var areaSizeKakao: [CGRect] = [
-        CGRect(x: 220.75, y: 181.84, width: 671, height: 1006),
-        CGRect(x: 909.94, y: 181.84, width: 671, height: 1006),
-        CGRect(x: 220.75, y: 1206.72, width: 671, height: 1006),
-        CGRect(x: 909.94, y: 1206.72, width: 671, height: 1006)
+        CGRect(x: 220.75, y: 133.81, width: 671, height: 1006),
+        CGRect(x: 909.94, y: 133.81, width: 671, height: 1006),
+        CGRect(x: 220.75, y: 1158.72, width: 671, height: 1006),
+        CGRect(x: 909.94, y: 1158.72, width: 671, height: 1006)
     ]
     var areaSizeKakao2: [CGRect] = [
         CGRect(x: 220.75, y: 457.84, width: 671, height: 1006),
