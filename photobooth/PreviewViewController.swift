@@ -9,71 +9,14 @@ import UIKit
 import Foundation
 
 class PreviewViewController: UIViewController {
-    var imageArray: [UIImage]!
-    var currentImagePos = 0
+    // Outlet variables
     @IBOutlet var previewImageView: UIImageView!
     @IBOutlet var numberToPrintLabel: UILabel!
+    
+    // Variables
+    var imageArray: [UIImage]!
+    var currentImagePos = 0
     var numberToPrintArray = [0,0,0,0,0,0]
-    var areaSizeSketch: [CGRect] = [
-        CGRect(x: 174, y: 204, width: 716, height: 1075),
-        CGRect(x: 910, y: 204, width: 716, height: 1075),
-        CGRect(x: 174, y: 1298.66, width: 716, height: 1075),
-        CGRect(x: 910, y: 1298.66, width: 716, height: 1075)
-    ]
-    var areaSizeKakao: [CGRect] = [
-        CGRect(x: 220.75, y: 133.81, width: 671, height: 1006),
-        CGRect(x: 909.94, y: 133.81, width: 671, height: 1006),
-        CGRect(x: 220.75, y: 1158.72, width: 671, height: 1006),
-        CGRect(x: 909.94, y: 1158.72, width: 671, height: 1006)
-    ]
-    var areaSizeKakao2: [CGRect] = [
-        CGRect(x: 220.75, y: 457.84, width: 671, height: 1006),
-        CGRect(x: 909.94, y: 457.84, width: 671, height: 1006),
-        CGRect(x: 220.75, y: 1482.72, width: 671, height: 1006),
-        CGRect(x: 909.94, y: 1482.72, width: 671, height: 1006)
-    ]
-    var areaSizeKakao3: [CGRect] = [
-        CGRect(x: 219.75, y: 131.84, width: 671, height: 1006),
-        CGRect(x: 908.94, y: 131.84, width: 671, height: 1006),
-        CGRect(x: 219.75, y: 1159.72, width: 671, height: 1006),
-        CGRect(x: 908.94, y: 1159.72, width: 671, height: 1006)
-    ]
-    var areaSizePhotocards: [CGRect] = [
-        CGRect(x: 160, y: 366, width: 618, height: 928),
-        CGRect(x: 1020, y: 366, width: 618, height: 928),
-        CGRect(x: 160, y: 1495, width: 618, height: 928),
-        CGRect(x: 1020, y: 1495, width: 618, height: 928)
-    ]
-    var areaSizeSketchPreview: [CGRect] = [
-        CGRect(x: 174, y: 204, width: 716, height: 1075),
-        CGRect(x: 910, y: 204, width: 716, height: 1075),
-        CGRect(x: 174, y: 1298.66, width: 716, height: 1075),
-        CGRect(x: 910, y: 1298.66, width: 716, height: 1075)
-    ]
-    var areaSizeKakaoPreview: [CGRect] = [
-        CGRect(x: 220.75, y: 181.84, width: 671, height: 1006),
-        CGRect(x: 909.94, y: 181.84, width: 671, height: 1006),
-        CGRect(x: 220.75, y: 1206.72, width: 671, height: 1006),
-        CGRect(x: 909.94, y: 1206.72, width: 671, height: 1006)
-    ]
-    var areaSizeKakao2Preview: [CGRect] = [
-        CGRect(x: 220.75, y: 457.84, width: 671, height: 1006),
-        CGRect(x: 909.94, y: 457.84, width: 671, height: 1006),
-        CGRect(x: 220.75, y: 1482.72, width: 671, height: 1006),
-        CGRect(x: 909.94, y: 1482.72, width: 671, height: 1006)
-    ]
-    var areaSizeKakao3Preview: [CGRect] = [
-        CGRect(x: 219.75, y: 131.84, width: 671, height: 1006),
-        CGRect(x: 908.94, y: 131.84, width: 671, height: 1006),
-        CGRect(x: 219.75, y: 1159.72, width: 671, height: 1006),
-        CGRect(x: 908.94, y: 1159.72, width: 671, height: 1006)
-    ]
-    var areaSizePhotocardsPreview: [CGRect] = [
-        CGRect(x: 160, y: 366, width: 618, height: 928),
-        CGRect(x: 1020, y: 366, width: 618, height: 928),
-        CGRect(x: 160, y: 1495, width: 618, height: 928),
-        CGRect(x: 1020, y: 1495, width: 618, height: 928)
-    ]
     var topImageTemplate: [UIImage] = []
     var topImageTemplatePreview: [UIImage] = []
     var areaSizes: [[CGRect]] = []
@@ -83,7 +26,7 @@ class PreviewViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        topImageTemplate = [
+        topImageTemplate = [ // Overlay template array (for actual print)
             UIImage(named: "PhotoboothTemplateSketch.png")!,
             UIImage(named: "PhotoboothTemplateKakao.png")!,
             UIImage(named: "PhotoboothTemplateKakao2.png")!,
@@ -91,7 +34,7 @@ class PreviewViewController: UIViewController {
             UIImage(named: "PhotoboothTemplatePhotocards.png")!,
             UIImage(named: "PhotoboothTemplatePhotocards2.png")!,
         ]
-        topImageTemplatePreview = [
+        topImageTemplatePreview = [ // Overlay template array (for previewing)
             UIImage(named: "PhotoboothTemplateSketchPreview.png")!,
             UIImage(named: "PhotoboothTemplateKakaoPreview.png")!,
             UIImage(named: "PhotoboothTemplateKakao2Preview.png")!,
@@ -99,7 +42,7 @@ class PreviewViewController: UIViewController {
             UIImage(named: "PhotoboothTemplatePhotocardsPreview.png")!,
             UIImage(named: "PhotoboothTemplatePhotocards2Preview.png")!,
         ]
-        areaSizes = [
+        areaSizes = [ // Areas to place the photos in
             areaSizeSketch,
             areaSizeKakao,
             areaSizeKakao2,
@@ -115,7 +58,7 @@ class PreviewViewController: UIViewController {
             areaSizePhotocardsPreview,
             areaSizePhotocardsPreview
         ]
-        Task {
+        Task { // Compile the four images with each template
             try await compileImages()
             try await compilePreviewImages()
         }
@@ -129,7 +72,7 @@ class PreviewViewController: UIViewController {
         performSegue(withIdentifier: "cancelPreview", sender: nil)
     }
     
-    @IBAction func scrollLeft(_ sender: Any) {
+    @IBAction func scrollLeft(_ sender: Any) { // View image to the left
         var newImagePos = (currentImagePos - 1) % 6
         if newImagePos < 0 {
             newImagePos += 6
@@ -139,26 +82,26 @@ class PreviewViewController: UIViewController {
         numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
     }
     
-    @IBAction func scrollRight(_ sender: Any) {
+    @IBAction func scrollRight(_ sender: Any) { // View image to the right
         let newImagePos = (currentImagePos + 1) % 6
         UIView.transition(with: self.previewImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.previewImageView.image = self.compiledPreviewImages[newImagePos]}, completion: nil)
         currentImagePos = newImagePos
         numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
     }
     
-    @IBAction func addPhoto(_ sender: Any) {
+    @IBAction func addPhoto(_ sender: Any) { // Adds 1 to the amount to print of that image
         numberToPrintArray[currentImagePos] += 1
         numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
     }
     
-    @IBAction func removePhoto(_ sender: Any) {
+    @IBAction func removePhoto(_ sender: Any) { // Removes 1 to the amount to print of that image
         if numberToPrintArray[currentImagePos] != 0 {
             numberToPrintArray[currentImagePos] -= 1
             numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
         }
     }
     
-    func compileImages() async throws {
+    func compileImages() async throws { // Compile four images and templates
         let firstImage = imageArray[0]
         let secondImage = imageArray[1]
         let thirdImage = imageArray[2]
@@ -179,7 +122,7 @@ class PreviewViewController: UIViewController {
         }
     }
     
-    func compilePreviewImages() async throws {
+    func compilePreviewImages() async throws { // Compile four images and preview templates
         let firstImage = imageArray[0]
         let secondImage = imageArray[1]
         let thirdImage = imageArray[2]
@@ -199,12 +142,13 @@ class PreviewViewController: UIViewController {
             compiledPreviewImages.append(newImage)
         }
         
-        previewImageView.image = compiledPreviewImages[0]
+        previewImageView.image = compiledPreviewImages[0] // Display first image
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is DropboxViewController {
+        if segue.destination is DropboxViewController { // If segue destination is dropbox view controller
             let destinationVC = segue.destination as! DropboxViewController
+            // Send images, preview images, four photos taken, and the number of each image to print to the dropbox view controller
             destinationVC.compiledImages = compiledImages
             destinationVC.numberToPrintArray = numberToPrintArray
             destinationVC.compiledPreviewImages = compiledPreviewImages

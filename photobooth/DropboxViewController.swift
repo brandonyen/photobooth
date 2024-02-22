@@ -8,26 +8,12 @@
 import Foundation
 import UIKit
 
-struct FolderShareURLStruct: Codable {
-    var path: String!
-    var settings = FolderShareURLSettingsStruct()
-}
-
-struct FolderShareURLSettingsStruct: Codable {
-    var access: String!
-    var allow_download: Bool!
-    var audience: String!
-    var requested_visibility: String!
-}
-
-struct FolderShareURLResponseStruct: Codable {
-    var url: String!
-}
-
-let printerURL = URL(string: config.printer_ip)!
-let currentPrinter = UIPrinter(url: printerURL)
-
 class DropboxViewController: UIViewController {
+    // Outlet variables
+    @IBOutlet var QRCode: UIImageView!
+    @IBOutlet var uploadStatusLabel: UILabel!
+    
+    // Variables
     var imageArray: [UIImage] = []
     var compiledImages: [UIImage] = []
     var compiledPreviewImages: [UIImage] = []
@@ -35,8 +21,6 @@ class DropboxViewController: UIViewController {
     var imagePrintQueue: [UIImage] = []
     var accessToken = config.api_key
     var folderName: String!
-    @IBOutlet var QRCode: UIImageView!
-    @IBOutlet var uploadStatusLabel: UILabel!
     var isCompleted = false
     
     override func viewDidLoad() {
@@ -45,7 +29,7 @@ class DropboxViewController: UIViewController {
         uploadStatusLabel.text = "Uploading..."
         folderName = generateDate()
         addImagesToQueue()
-        Task {
+        Task { // Upload images to dropbox, get url of the folder, and convert url into QR code
             try await upload()
             let string = try await getFolderShareURL()
             QRCode.layer.magnificationFilter = CALayerContentsFilter.nearest
@@ -53,7 +37,7 @@ class DropboxViewController: UIViewController {
             uploadStatusLabel.text = "Upload Complete! Printing Images."
             isCompleted = true
         }
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async { // Print images
             self.printImages(pos: 0, imageQueue: self.imagePrintQueue)
         }
     }
@@ -63,12 +47,12 @@ class DropboxViewController: UIViewController {
     }
     
     @IBAction func backToPhotobooth(_ sender: Any) {
-        if isCompleted {
+        if isCompleted { // Can only return back to the photobooth once the images are uploaded to dropbox
             performSegue(withIdentifier: "backToPhotobooth", sender: nil)
         }
     }
     
-    func generateQRCode(from string: String) async throws -> UIImage? {
+    func generateQRCode(from string: String) async throws -> UIImage? { // Generate QR code given a string
         let data = string.data(using: String.Encoding.ascii)
       
         if let QRFilter = CIFilter(name: "CIQRCodeGenerator") {
@@ -80,16 +64,16 @@ class DropboxViewController: UIViewController {
         return nil
     }
     
-    func generateDate() -> String {
+    func generateDate() -> String { // Generate the current date and time to name the folder
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
         let formattedDate = dateFormatter.string(from: Date())
         return formattedDate
     }
     
-    func upload() async throws {
+    func upload() async throws { // Upload files into folder with the name set to the date/time
         let url = URL(string: "https://content.dropboxapi.com/2/files/upload")!
-        for i in 0...5 {
+        for i in 0...5 { // upload each compiled image
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
@@ -111,7 +95,7 @@ class DropboxViewController: UIViewController {
                 print(error)
             }
         }
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: url) // Upload the amount of each compiled image to print (to verify if the amount actually printed is correct)
                 request.httpMethod = "POST"
                 request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
                 request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
@@ -137,7 +121,7 @@ class DropboxViewController: UIViewController {
                 }
     }
     
-    func getFolderShareURL() async throws -> String {
+    func getFolderShareURL() async throws -> String { // Set the sharing mode of the folder to public and return the URL
         var message = FolderShareURLStruct()
         message.path = "/" + folderName
         message.settings.access = "viewer"
@@ -158,7 +142,7 @@ class DropboxViewController: UIViewController {
         }
     }
     
-    func addImagesToQueue() {
+    func addImagesToQueue() { // Add images to print queue
         for i in 0...5 {
             for _ in 0..<numberToPrintArray[i] {
                 imagePrintQueue.append(compiledImages[i])
@@ -166,10 +150,10 @@ class DropboxViewController: UIViewController {
         }
     }
     
-    func printImages(pos: Int, imageQueue: [UIImage]) {
+    func printImages(pos: Int, imageQueue: [UIImage]) { // Print out images
         let printCompletionHandler: UIPrintInteractionController.CompletionHandler = { (controller, success, error) -> Void in
-            if success && pos + 1 < imageQueue.count {
-                self.printImages(pos: pos+1, imageQueue: imageQueue)
+            if success && pos + 1 < imageQueue.count { // If printing was successful and queue is not empty
+                self.printImages(pos: pos+1, imageQueue: imageQueue) // print next image in queue
                     }
                 }
         
@@ -184,9 +168,9 @@ class DropboxViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is PreviewViewController {
+        if segue.destination is PreviewViewController { // If segue destination is back to preview
             let destinationVC = segue.destination as! PreviewViewController
-            destinationVC.imageArray = imageArray
+            destinationVC.imageArray = imageArray // Send the four images taken back to the preview (so compiled images can be redone)
         }
     }
 }

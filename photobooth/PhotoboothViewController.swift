@@ -9,24 +9,8 @@ import UIKit
 import Foundation
 import AVFoundation
 
-struct urlStruct: Codable {
-    let url: [String]
-}
-
-struct pageNumberStruct: Codable {
-    let contentsnumber: Int!
-    let pagenumber: Int!
-}
-
-struct Message: Encodable {
-    let af: Bool
-}
-
-struct responseMessage: Codable {
-    let message: String!
-}
-
 class PhotoboothViewController: UIViewController {
+    // Outlet Variables
     @IBOutlet var startButton: UIButton!
     @IBOutlet var cancelButton: UIButton!
     @IBOutlet var nextButton: UIButton!
@@ -36,12 +20,14 @@ class PhotoboothViewController: UIViewController {
     @IBOutlet var liveViewImage4: UIImageView!
     @IBOutlet var previewView: UIView!
     @IBOutlet var countdownLabel: UILabel!
+    
+    // Variables
     var liveViewImageArray: [UIImageView]!
     var currentTask: Task<(), Never>!
     var photoboothSessionInProgress: Bool = false
     var finishedPhotoboothSession: Bool = false
     
-    // Declaring variables for camera live view
+    // Declaring variables for camera live view from iPad camera
     var videoDataOutput: AVCaptureVideoDataOutput!
     var videoDataOutputQueue: DispatchQueue!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -51,42 +37,42 @@ class PhotoboothViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         previewView.contentMode = UIView.ContentMode.scaleAspectFill
-        view.addSubview(previewView)
-        view.addSubview(countdownLabel)
-        self.setupAVCapture()
-        liveViewImageArray = [liveViewImage, liveViewImage2, liveViewImage3, liveViewImage4]
+        view.addSubview(previewView) // Add the camera live view to subview
+        view.addSubview(countdownLabel) // Add countdown label to subview
+        self.setupAVCapture() // Start camera live view
+        liveViewImageArray = [liveViewImage, liveViewImage2, liveViewImage3, liveViewImage4] // Add the four (empty) UIImages to array
     }
     
-    @IBAction func photoboothEventHandler(_ sender: Any) {
-        if !photoboothSessionInProgress && !finishedPhotoboothSession {
+    @IBAction func photoboothEventHandler(_ sender: Any) { // Start button for photobooth
+        if !photoboothSessionInProgress && !finishedPhotoboothSession { // If photobooth session is not in progress and photobooth session is not finished
             photoboothSessionInProgress = true
-            for i in 0...3 {
+            for i in 0...3 { // Clear all preview images
                 liveViewImageArray[i].image = nil
             }
             startButton.tintColor = UIColor.systemGray
             cancelButton.tintColor = UIColor.systemRed
-            currentTask = Task {
+            currentTask = Task { // Set current task so task can be cancelled by other functions
                 do {
-                    try await startPhotoboothSequence()
+                    try await startPhotoboothSequence() // Start photobooth session
                 }
                 catch {
                     print(error)
                 }
             }
         }
-        else if !photoboothSessionInProgress && finishedPhotoboothSession {
+        else if !photoboothSessionInProgress && finishedPhotoboothSession { // If photobooth session is finished (user pressed retake button)
             photoboothSessionInProgress = true
             finishedPhotoboothSession = false
             nextButton.tintColor = UIColor.systemGray
             for i in 0...3 {
-                liveViewImageArray[i].image = nil
+                liveViewImageArray[i].image = nil // Clear all preview images
             }
             startButton.setTitle("Start", for: .normal)
             startButton.tintColor = UIColor.systemGray
             cancelButton.tintColor = UIColor.systemRed
-            currentTask = Task {
+            currentTask = Task { // Set current task so task can be cancelled by other functions
                 do {
-                    try await startPhotoboothSequence()
+                    try await startPhotoboothSequence() // Start photobooth session
                 }
                 catch {
                     print(error)
@@ -95,9 +81,9 @@ class PhotoboothViewController: UIViewController {
         }
     }
     
-    @IBAction func cancelEventHandler(_ sender: Any) {
-            if photoboothSessionInProgress {
-                currentTask.cancel()
+    @IBAction func cancelEventHandler(_ sender: Any) { // Cancel button for photobooth
+            if photoboothSessionInProgress { // If photobooth is running
+                currentTask.cancel() // Cancel photobooth task
                 photoboothSessionInProgress = false
                 startButton.tintColor = UIColor.systemGreen
                 cancelButton.tintColor = UIColor.systemGray
@@ -106,14 +92,14 @@ class PhotoboothViewController: UIViewController {
     }
 
     @IBAction func nextEventHandler(_ sender: Any) {
-        if finishedPhotoboothSession {
+        if finishedPhotoboothSession { // If photobooth session is finished (all four pictures taken)
             DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "didFinishPhotoboothSession", sender: nil)
+                self.performSegue(withIdentifier: "didFinishPhotoboothSession", sender: nil) // Segue to preview viewcontroller
             }
         }
     }
     
-    func getLatestImagePathFromCamera() async throws -> String {
+    func getLatestImagePathFromCamera() async throws -> String { // Get the url of the latest image stored on the camera
         var folderHTTPPath: String!
         var returnedValue: String!
         let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/contents/sd")!
@@ -121,15 +107,15 @@ class PhotoboothViewController: UIViewController {
             do {
                 let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
                 folderHTTPPath = tasks.url[tasks.url.count - 1]
-                let url = URL(string: folderHTTPPath + "?kind=number")!
+                let url = URL(string: folderHTTPPath + "?kind=number")! // Get the last page of the list of images
                  let (data, _) = try await URLSession.shared.data(from: url)
                  do {
                      let tasks = try JSONDecoder().decode(pageNumberStruct.self, from: data)
-                     let url = URL(string: folderHTTPPath + "?page=" + String(tasks.pagenumber!))!
+                     let url = URL(string: folderHTTPPath + "?page=" + String(tasks.pagenumber!))! // Get last image from the last page
                      let (data, _) = try await URLSession.shared.data(from: url)
                      do {
                          let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
-                         returnedValue = tasks.url[tasks.url.count - 1]
+                         returnedValue = tasks.url[tasks.url.count - 1] // set return value to the url of the last image
                      } catch {
                          print(error)
                      }
@@ -142,7 +128,7 @@ class PhotoboothViewController: UIViewController {
         return returnedValue
     }
     
-    func takePicture() async throws {
+    func takePicture() async throws { // Take picture on camera
         let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/shooting/control/shutterbutton")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -171,10 +157,10 @@ class PhotoboothViewController: UIViewController {
         }
     }
     
-    func startPhotoboothSequence() async throws {
-        for i in 0...3 {
+    func startPhotoboothSequence() async throws { // Start photobooth function
+        for i in 0...3 { // Take four pictures
             countdownLabel.font = countdownLabel.font.withSize(90)
-            for i in 1...5 {
+            for i in 1...5 { // Count down from 5
                 countdownLabel.text = String(abs(i-6))
                 try await Task.sleep(nanoseconds: UInt64(1000000000))
             }
@@ -186,7 +172,7 @@ class PhotoboothViewController: UIViewController {
             try await Task.sleep(nanoseconds: UInt64(1000000000 * cameraDelay))
             let url = URL(string: try await getLatestImagePathFromCamera() + "?kind=display")!
             let (data, _) = try await URLSession.shared.data(from: url)
-            liveViewImageArray[i].image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left)
+            liveViewImageArray[i].image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left) // set preview image to the image taken
         }
         countdownLabel.text = ""
         photoboothSessionInProgress = false
@@ -198,10 +184,10 @@ class PhotoboothViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is PreviewViewController {
+        if segue.destination is PreviewViewController { // If segue destination is preview view controller
             let destinationVC = segue.destination as! PreviewViewController
             let imageArray: [UIImage] = [liveViewImageArray[0].image!,liveViewImageArray[1].image!,liveViewImageArray[2].image!,liveViewImageArray[3].image!]
-            destinationVC.imageArray = imageArray
+            destinationVC.imageArray = imageArray // Send the four images to the view controller
         }
     }
 }

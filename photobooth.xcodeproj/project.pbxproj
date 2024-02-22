@@ -35,6 +35,7 @@
 		AFDA1F742B7878A000D76082 /* PhotoboothTemplatePhotocards2Preview.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F6E2B7878A000D76082 /* PhotoboothTemplatePhotocards2Preview.png */; };
 		AFDA1F752B7878A000D76082 /* PhotoboothTemplateKakao3Preview.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F6F2B7878A000D76082 /* PhotoboothTemplateKakao3Preview.png */; };
 		AFDA1F762B7878A000D76082 /* PhotoboothTemplateKakaoPreview.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F702B7878A000D76082 /* PhotoboothTemplateKakaoPreview.png */; };
+		AFFCA4752B87F673008FBE92 /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFCA4742B87F673008FBE92 /* global.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		AFDA1F6E2B7878A000D76082 /* PhotoboothTemplatePhotocards2Preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplatePhotocards2Preview.png; sourceTree = "<group>"; };
 		AFDA1F6F2B7878A000D76082 /* PhotoboothTemplateKakao3Preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao3Preview.png; sourceTree = "<group>"; };
 		AFDA1F702B7878A000D76082 /* PhotoboothTemplateKakaoPreview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakaoPreview.png; sourceTree = "<group>"; };
+		AFFCA4742B87F673008FBE92 /* global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				AF2A655C2B6DF74300CAA35A /* AppDelegate.swift */,
 				AF2A655E2B6DF74300CAA35A /* SceneDelegate.swift */,
 				AF2A65602B6DF74300CAA35A /* ViewController.swift */,
+				AFFCA4742B87F673008FBE92 /* global.swift */,
 				AF2A65622B6DF74300CAA35A /* Main.storyboard */,
 				AF730B392B824C0500105CDE /* config.swift */,
 				AFDA1F632B776E3700D76082 /* DropboxViewController.swift */,
@@ -344,6 +347,7 @@
 				AF2A65612B6DF74300CAA35A /* ViewController.swift in Sources */,
 				AF2A65672B6DF74300CAA35A /* photobooth.xcdatamodeld in Sources */,
 				AF2A655D2B6DF74300CAA35A /* AppDelegate.swift in Sources */,
+				AFFCA4752B87F673008FBE92 /* global.swift in Sources */,
 				AF2A655F2B6DF74300CAA35A /* SceneDelegate.swift in Sources */,
 				AF253F9E2B72911F00761A62 /* PhotoboothViewController.swift in Sources */,
 				AF730B3A2B824C0500105CDE /* config.swift in Sources */,
