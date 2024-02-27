@@ -14,6 +14,7 @@ class PreviewViewController: UIViewController {
     @IBOutlet var numberToPrintLabel: UILabel!
     
     // Variables
+    var pickupName: String!
     var imageArray: [UIImage]!
     var currentImagePos = 0
     var numberToPrintArray = [0,0,0,0,0,0]
@@ -65,6 +66,19 @@ class PreviewViewController: UIViewController {
     }
     
     @IBAction func toDropbox(_ sender: Any) {
+        let alertController = UIAlertController(title: "Enter your name", message: "Please enter a name for photo pickup.", preferredStyle: .alert)
+
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Name..."
+        }
+
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+            let inputName = alertController.textFields![0].text
+            self.pickupName = inputName
+        }
+        alertController.addAction(saveAction)
+
+        present(alertController, animated: true, completion: nil)
         performSegue(withIdentifier: "toDropbox", sender: nil)
     }
     
@@ -153,6 +167,7 @@ class PreviewViewController: UIViewController {
             destinationVC.numberToPrintArray = numberToPrintArray
             destinationVC.compiledPreviewImages = compiledPreviewImages
             destinationVC.imageArray = imageArray
+            destinationVC.pickupName = pickupName
         }
     }
 }

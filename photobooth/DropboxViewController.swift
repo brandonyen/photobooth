@@ -14,6 +14,7 @@ class DropboxViewController: UIViewController {
     @IBOutlet var uploadStatusLabel: UILabel!
     
     // Variables
+    var pickupName: String!
     var imageArray: [UIImage] = []
     var compiledImages: [UIImage] = []
     var compiledPreviewImages: [UIImage] = []
@@ -27,7 +28,7 @@ class DropboxViewController: UIViewController {
         super.viewDidLoad()
 
         uploadStatusLabel.text = "Uploading..."
-        folderName = generateDate()
+        folderName = pickupName + " " + generateDate()
         addImagesToQueue()
         Task { // Upload images to dropbox, get url of the folder, and convert url into QR code
             try await upload()
