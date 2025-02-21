@@ -77,6 +77,12 @@ let areaSizePhotocardsPreview: [CGRect] = [
     CGRect(x: 160, y: 1495, width: 618, height: 928),
     CGRect(x: 1020, y: 1495, width: 618, height: 928)
 ]
+let areaSizeKodak: [CGRect] = [
+    CGRect(x: 80, y: 174, width: 729, height: 1123),
+    CGRect(x: 992, y: 174, width: 729, height: 1123),
+    CGRect(x: 80, y: 1350, width: 729, height: 1123),
+    CGRect(x: 992, y: 1350, width: 729, height: 1123)
+]
 
 // Structs
 struct urlStruct: Codable {
