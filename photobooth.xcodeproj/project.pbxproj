@@ -25,6 +25,7 @@
 		AFB2706F2B75F96D0079C181 /* PhotoboothTemplateKakao.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB2706A2B75F96D0079C181 /* PhotoboothTemplateKakao.png */; };
 		AFB270702B75F96D0079C181 /* PhotoboothTemplatePhotocards.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB2706B2B75F96D0079C181 /* PhotoboothTemplatePhotocards.png */; };
 		AFB270712B75F96D0079C181 /* PhotoboothTemplatePhotocards2.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB2706C2B75F96D0079C181 /* PhotoboothTemplatePhotocards2.png */; };
+		AFB5715D2D67A9BD00B0178C /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB5715C2D67A9BD00B0178C /* TestViewController.swift */; };
 		AFDA1F2B2B76C7F100D76082 /* PhotoboothTemplateSketch.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F2A2B76C7F100D76082 /* PhotoboothTemplateSketch.png */; };
 		AFDA1F2E2B76F8AF00D76082 /* left-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */; };
 		AFDA1F2F2B76F8AF00D76082 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */; };
@@ -78,6 +79,7 @@
 		AFB2706A2B75F96D0079C181 /* PhotoboothTemplateKakao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao.png; sourceTree = "<group>"; };
 		AFB2706B2B75F96D0079C181 /* PhotoboothTemplatePhotocards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplatePhotocards.png; sourceTree = "<group>"; };
 		AFB2706C2B75F96D0079C181 /* PhotoboothTemplatePhotocards2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplatePhotocards2.png; sourceTree = "<group>"; };
+		AFB5715C2D67A9BD00B0178C /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		AFDA1F2A2B76C7F100D76082 /* PhotoboothTemplateSketch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateSketch.png; sourceTree = "<group>"; };
 		AFDA1F2C2B76F8AF00D76082 /* left-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow.png"; sourceTree = "<group>"; };
 		AFDA1F2D2B76F8AF00D76082 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow.png"; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				AF2A65602B6DF74300CAA35A /* ViewController.swift */,
 				AFFCA4742B87F673008FBE92 /* global.swift */,
 				AF2A65622B6DF74300CAA35A /* Main.storyboard */,
+				AFB5715C2D67A9BD00B0178C /* TestViewController.swift */,
 				AF730B392B824C0500105CDE /* config.swift */,
 				AFDA1F632B776E3700D76082 /* DropboxViewController.swift */,
 				AF2A65682B6DF74400CAA35A /* Assets.xcassets */,
@@ -344,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFB5715D2D67A9BD00B0178C /* TestViewController.swift in Sources */,
 				AF2A65612B6DF74300CAA35A /* ViewController.swift in Sources */,
 				AF2A65672B6DF74300CAA35A /* photobooth.xcdatamodeld in Sources */,
 				AF2A655D2B6DF74300CAA35A /* AppDelegate.swift in Sources */,

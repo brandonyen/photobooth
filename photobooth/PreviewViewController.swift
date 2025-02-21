@@ -75,11 +75,11 @@ class PreviewViewController: UIViewController {
         let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
             let inputName = alertController.textFields![0].text
             self.pickupName = inputName
+            self.performSegue(withIdentifier: "toDropbox", sender: nil)
         }
         alertController.addAction(saveAction)
 
         present(alertController, animated: true, completion: nil)
-        performSegue(withIdentifier: "toDropbox", sender: nil)
     }
     
     @IBAction func backToPhotobooth(_ sender: Any) {

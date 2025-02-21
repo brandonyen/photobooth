@@ -19,17 +19,17 @@ class DropboxViewController: UIViewController {
     var compiledImages: [UIImage] = []
     var compiledPreviewImages: [UIImage] = []
     var numberToPrintArray: [Int]!
-    var imagePrintQueue: [UIImage] = []
     var accessToken = config.api_key
     var folderName: String!
     var isCompleted = false
+    
+    var imagePrintQueue: [UIImage] = [] // Would use if there was only one printer
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         uploadStatusLabel.text = "Uploading..."
         folderName = pickupName + " " + generateDate()
-        addImagesToQueue()
         Task { // Upload images to dropbox, get url of the folder, and convert url into QR code
             try await upload()
             let string = try await getFolderShareURL()
@@ -37,9 +37,6 @@ class DropboxViewController: UIViewController {
             QRCode.image = try await generateQRCode(from: string)
             uploadStatusLabel.text = "Upload Complete! Printing Images."
             isCompleted = true
-        }
-        DispatchQueue.global(qos: .userInitiated).async { // Print images
-            self.printImages(pos: 0, imageQueue: self.imagePrintQueue)
         }
     }
     
@@ -96,12 +93,33 @@ class DropboxViewController: UIViewController {
                 print(error)
             }
         }
+        for i in 0...5 { // upload each compiled image
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+            request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
+            request.setValue("{\"autorename\":false,\"mode\":\"add\",\"mute\":false,\"path\":\"/Print/"
+                             + folderName + "/" + String(i) + ".png" +
+                             "\",\"strict_conflict\":false}", forHTTPHeaderField: "Dropbox-API-Arg")
+            let imageData = compiledImages[i].pngData()
+            request.httpBody = imageData
+            do {
+                let (_, response) = try await URLSession.shared.data(for: request)
+                if let response = response as? HTTPURLResponse {
+                    if response.statusCode != 200 {
+                        print("error uploading to dropbox")
+                        print(response)
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }
         var request = URLRequest(url: url) // Upload the amount of each compiled image to print (to verify if the amount actually printed is correct)
                 request.httpMethod = "POST"
                 request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
                 request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
-                request.setValue("{\"autorename\":false,\"mode\":\"add\",\"mute\":false,\"path\":\"/Print/"
-                                 + folderName + "/printInfo.txt" +
+                request.setValue("{\"autorename\":false,\"mode\":\"add\",\"mute\":false,\"path\":\"/Print/" + folderName + ".txt" +
                                  "\",\"strict_conflict\":false}", forHTTPHeaderField: "Dropbox-API-Arg")
                 var str = ""
                 for i in 0...5 {
@@ -143,6 +161,7 @@ class DropboxViewController: UIViewController {
         }
     }
     
+    /*
     func addImagesToQueue() { // Add images to print queue
         for i in 0...5 {
             for _ in 0..<numberToPrintArray[i] {
@@ -167,6 +186,7 @@ class DropboxViewController: UIViewController {
         
         printController.print(to: currentPrinter, completionHandler: printCompletionHandler)
     }
+    */
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is PreviewViewController { // If segue destination is back to preview
