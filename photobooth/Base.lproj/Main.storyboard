@@ -230,20 +230,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="820" height="1180"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter IP Address..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aWE-Zh-0XD">
-                                <rect key="frame" x="185" y="489" width="450" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Port Number..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qc6-wj-4nO">
-                                <rect key="frame" x="185" y="571" width="450" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mIf-RV-tqs">
                                 <rect key="frame" x="366" y="657" width="89" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -253,6 +239,13 @@
                                     <action selector="connnectToCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aDd-Q9-1QM"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter IP Address..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aWE-Zh-0XD">
+                                <rect key="frame" x="185" y="573" width="450" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -260,7 +253,6 @@
                     <connections>
                         <outlet property="connectButton" destination="mIf-RV-tqs" id="heW-EU-RKw"/>
                         <outlet property="ipAddressField" destination="aWE-Zh-0XD" id="U18-c0-oE5"/>
-                        <outlet property="portNumberField" destination="Qc6-wj-4nO" id="zfX-an-dHs"/>
                         <segue destination="UK5-tO-1jW" kind="presentation" identifier="didConnectToCamera" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="gR9-v9-wYA"/>
                     </connections>
                 </viewController>
@@ -338,7 +330,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="hMT-j7-BcY"/>
-        <segue reference="OAi-H2-9Sb"/>
+        <segue reference="gR9-v9-wYA"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="left-arrow.png" width="392.17022705078125" height="392.17022705078125"/>
