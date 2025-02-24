@@ -42,35 +42,17 @@ let areaSizePhotocards: [CGRect] = [
     CGRect(x: 160, y: 1495, width: 618, height: 928),
     CGRect(x: 1020, y: 1495, width: 618, height: 928)
 ]
-let areaSizeSketchPreview: [CGRect] = [
-    CGRect(x: 174, y: 204, width: 716, height: 1075),
-    CGRect(x: 910, y: 204, width: 716, height: 1075),
-    CGRect(x: 174, y: 1298.66, width: 716, height: 1075),
-    CGRect(x: 910, y: 1298.66, width: 716, height: 1075)
-]
 let areaSizeKakaoPreview: [CGRect] = [
     CGRect(x: 220.75, y: 181.84, width: 671, height: 1006),
     CGRect(x: 909.94, y: 181.84, width: 671, height: 1006),
     CGRect(x: 220.75, y: 1206.72, width: 671, height: 1006),
     CGRect(x: 909.94, y: 1206.72, width: 671, height: 1006)
 ]
-let areaSizeKakao2Preview: [CGRect] = [
-    CGRect(x: 220.75, y: 457.84, width: 671, height: 1006),
-    CGRect(x: 909.94, y: 457.84, width: 671, height: 1006),
-    CGRect(x: 220.75, y: 1482.72, width: 671, height: 1006),
-    CGRect(x: 909.94, y: 1482.72, width: 671, height: 1006)
-]
 let areaSizeKakao3Preview: [CGRect] = [
-    CGRect(x: 219.75, y: 131.84, width: 671, height: 1006),
-    CGRect(x: 908.94, y: 131.84, width: 671, height: 1006),
-    CGRect(x: 219.75, y: 1159.72, width: 671, height: 1006),
-    CGRect(x: 908.94, y: 1159.72, width: 671, height: 1006)
-]
-let areaSizePhotocardsPreview: [CGRect] = [
-    CGRect(x: 160, y: 366, width: 618, height: 928),
-    CGRect(x: 1020, y: 366, width: 618, height: 928),
-    CGRect(x: 160, y: 1495, width: 618, height: 928),
-    CGRect(x: 1020, y: 1495, width: 618, height: 928)
+    CGRect(x: 219.75, y: 181.84, width: 671, height: 1006),
+    CGRect(x: 908.94, y: 181.84, width: 671, height: 1006),
+    CGRect(x: 219.75, y: 1206.72, width: 671, height: 1006),
+    CGRect(x: 908.94, y: 1206.72, width: 671, height: 1006)
 ]
 let areaSizeKodak: [CGRect] = [
     CGRect(x: 80, y: 174, width: 729, height: 1123),

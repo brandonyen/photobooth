@@ -65,6 +65,7 @@ class PhotoboothViewController: UIViewController {
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil, let image = UIImage(data: data) else {
                 print("Error fetching frame:", error?.localizedDescription ?? "Unknown error")
+                self.fetchFrame()
                 return
             }
 

@@ -69,7 +69,7 @@ class DropboxViewController: UIViewController {
     
     func upload() async throws { // Upload files into folder with the name set to the date/time
         let url = URL(string: "https://content.dropboxapi.com/2/files/upload")!
-        for i in 0...5 { // upload each compiled image
+        for i in 0...6 { // upload each compiled image
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
@@ -91,7 +91,7 @@ class DropboxViewController: UIViewController {
                 print(error)
             }
         }
-        for i in 0...5 { // upload each compiled image
+        for i in 0...6 { // upload each compiled image
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")

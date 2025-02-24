@@ -55,12 +55,12 @@ class PreviewViewController: UIViewController {
             areaSizeKodak
         ]
         areaSizesPreview = [
-            areaSizeSketchPreview,
+            areaSizeSketch,
             areaSizeKakaoPreview,
-            areaSizeKakao2Preview,
+            areaSizeKakao2,
             areaSizeKakao3Preview,
-            areaSizePhotocardsPreview,
-            areaSizePhotocardsPreview,
+            areaSizePhotocards,
+            areaSizePhotocards,
             areaSizeKodak
         ]
         Task { // Compile the four images with each template
