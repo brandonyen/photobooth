@@ -17,7 +17,7 @@ class PreviewViewController: UIViewController {
     var pickupName: String!
     var imageArray: [UIImage]!
     var currentImagePos = 0
-    var numberToPrintArray = [0,0,0,0,0,0]
+    var numberToPrintArray = [0,0,0,0,0,0,0]
     var topImageTemplate: [UIImage] = []
     var topImageTemplatePreview: [UIImage] = []
     var areaSizes: [[CGRect]] = []

@@ -28,7 +28,7 @@ class PhotoboothViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        previewView.contentMode = UIView.ContentMode.scaleAspectFill
+        previewView.contentMode = UIView.ContentMode.scaleAspectFit
         view.addSubview(previewView) // Add the camera live view to subview
         view.addSubview(countdownLabel) // Add countdown label to subview
         self.startLiveView() // Start camera live view
