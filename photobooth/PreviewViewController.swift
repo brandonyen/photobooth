@@ -17,52 +17,12 @@ class PreviewViewController: UIViewController {
     var pickupName: String!
     var imageArray: [UIImage]!
     var currentImagePos = 0
-    var numberToPrintArray = [0,0,0,0,0,0,0]
-    var topImageTemplate: [UIImage] = []
-    var topImageTemplatePreview: [UIImage] = []
-    var areaSizes: [[CGRect]] = []
-    var areaSizesPreview: [[CGRect]] = []
+    var numberToPrintArray = Array(repeating: 0, count: numTemplates)
     var compiledImages: [UIImage] = []
     var compiledPreviewImages: [UIImage] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        topImageTemplate = [ // Overlay template array (for actual print)
-            UIImage(named: "PhotoboothTemplateSketch.png")!,
-            UIImage(named: "PhotoboothTemplateKakao.png")!,
-            UIImage(named: "PhotoboothTemplateKakao2.png")!,
-            UIImage(named: "PhotoboothTemplateKakao3.png")!,
-            UIImage(named: "PhotoboothTemplatePhotocards.png")!,
-            UIImage(named: "PhotoboothTemplatePhotocards2.png")!,
-            UIImage(named: "PhotoboothTemplateKodak.png")!
-        ]
-        topImageTemplatePreview = [ // Overlay template array (for previewing)
-            UIImage(named: "PhotoboothTemplateSketchPreview.png")!,
-            UIImage(named: "PhotoboothTemplateKakaoPreview.png")!,
-            UIImage(named: "PhotoboothTemplateKakao2.png")!,
-            UIImage(named: "PhotoboothTemplateKakao3Preview.png")!,
-            UIImage(named: "PhotoboothTemplatePhotocardsPreview.png")!,
-            UIImage(named: "PhotoboothTemplatePhotocards2Preview.png")!,
-            UIImage(named: "PhotoboothTemplateKodak.png")!
-        ]
-        areaSizes = [ // Areas to place the photos in
-            areaSizeSketch,
-            areaSizeKakao,
-            areaSizeKakao2,
-            areaSizeKakao3,
-            areaSizePhotocards,
-            areaSizePhotocards,
-            areaSizeKodak
-        ]
-        areaSizesPreview = [
-            areaSizeSketch,
-            areaSizeKakaoPreview,
-            areaSizeKakao2,
-            areaSizeKakao3Preview,
-            areaSizePhotocards,
-            areaSizePhotocards,
-            areaSizeKodak
-        ]
         Task { // Compile the four images with each template
             try await compileImages()
             try await compilePreviewImages()
@@ -91,9 +51,9 @@ class PreviewViewController: UIViewController {
     }
     
     @IBAction func scrollLeft(_ sender: Any) { // View image to the left
-        var newImagePos = (currentImagePos - 1) % 7
+        var newImagePos = (currentImagePos - 1) % numTemplates
         if newImagePos < 0 {
-            newImagePos += 7
+            newImagePos += numTemplates
         }
         UIView.transition(with: self.previewImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.previewImageView.image = self.compiledPreviewImages[newImagePos]}, completion: nil)
         currentImagePos = newImagePos
@@ -101,7 +61,7 @@ class PreviewViewController: UIViewController {
     }
     
     @IBAction func scrollRight(_ sender: Any) { // View image to the right
-        let newImagePos = (currentImagePos + 1) % 7
+        let newImagePos = (currentImagePos + 1) % numTemplates
         UIView.transition(with: self.previewImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.previewImageView.image = self.compiledPreviewImages[newImagePos]}, completion: nil)
         currentImagePos = newImagePos
         numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])

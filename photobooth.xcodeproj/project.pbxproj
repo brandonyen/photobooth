@@ -20,7 +20,6 @@
 		AF2A65812B6DF74400CAA35A /* photoboothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65802B6DF74400CAA35A /* photoboothUITests.swift */; };
 		AF2A65832B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */; };
 		AF730B3A2B824C0500105CDE /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF730B392B824C0500105CDE /* config.swift */; };
-		AFB5715D2D67A9BD00B0178C /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB5715C2D67A9BD00B0178C /* TestViewController.swift */; };
 		AFB5716A2D69286F00B0178C /* PhotoboothTemplatePhotocards2Preview.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB571662D69286F00B0178C /* PhotoboothTemplatePhotocards2Preview.png */; };
 		AFB5716B2D69286F00B0178C /* PhotoboothTemplateSketch.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB571682D69286F00B0178C /* PhotoboothTemplateSketch.png */; };
 		AFB5716C2D69286F00B0178C /* PhotoboothTemplateKakao3Preview.png in Resources */ = {isa = PBXBuildFile; fileRef = AFB571612D69286F00B0178C /* PhotoboothTemplateKakao3Preview.png */; };
@@ -74,7 +73,6 @@
 		AF2A65802B6DF74400CAA35A /* photoboothUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoboothUITests.swift; sourceTree = "<group>"; };
 		AF2A65822B6DF74400CAA35A /* photoboothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = photoboothUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		AF730B392B824C0500105CDE /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
-		AFB5715C2D67A9BD00B0178C /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		AFB5715E2D69286F00B0178C /* PhotoboothTemplateKakao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao.png; sourceTree = "<group>"; };
 		AFB5715F2D69286F00B0178C /* PhotoboothTemplateKakao2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao2.png; sourceTree = "<group>"; };
 		AFB571602D69286F00B0178C /* PhotoboothTemplateKakao3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoboothTemplateKakao3.png; sourceTree = "<group>"; };
@@ -147,7 +145,6 @@
 				AF2A65602B6DF74300CAA35A /* ViewController.swift */,
 				AFFCA4742B87F673008FBE92 /* global.swift */,
 				AF2A65622B6DF74300CAA35A /* Main.storyboard */,
-				AFB5715C2D67A9BD00B0178C /* TestViewController.swift */,
 				AF730B392B824C0500105CDE /* config.swift */,
 				AFDA1F632B776E3700D76082 /* DropboxViewController.swift */,
 				AF2A65682B6DF74400CAA35A /* Assets.xcassets */,
@@ -347,7 +344,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFB5715D2D67A9BD00B0178C /* TestViewController.swift in Sources */,
 				AF2A65612B6DF74300CAA35A /* ViewController.swift in Sources */,
 				AF2A65672B6DF74300CAA35A /* photobooth.xcdatamodeld in Sources */,
 				AF2A655D2B6DF74300CAA35A /* AppDelegate.swift in Sources */,

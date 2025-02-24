@@ -10,6 +10,7 @@ import UIKit
 
 // Global variables
 var cameraIP = "" // Camera IP address and port number
+let numTemplates = 7
 
 // Areas to draw the four taken images in, for each template
 let areaSizeSketch: [CGRect] = [
@@ -59,6 +60,43 @@ let areaSizeKodak: [CGRect] = [
     CGRect(x: 992, y: 174, width: 729, height: 1123),
     CGRect(x: 80, y: 1350, width: 729, height: 1123),
     CGRect(x: 992, y: 1350, width: 729, height: 1123)
+]
+
+let topImageTemplate = [ // Overlay template array (for actual print)
+    UIImage(named: "PhotoboothTemplateSketch.png")!,
+    UIImage(named: "PhotoboothTemplateKakao.png")!,
+    UIImage(named: "PhotoboothTemplateKakao2.png")!,
+    UIImage(named: "PhotoboothTemplateKakao3.png")!,
+    UIImage(named: "PhotoboothTemplatePhotocards.png")!,
+    UIImage(named: "PhotoboothTemplatePhotocards2.png")!,
+    UIImage(named: "PhotoboothTemplateKodak.png")!
+]
+let topImageTemplatePreview = [ // Overlay template array (for previewing)
+    UIImage(named: "PhotoboothTemplateSketchPreview.png")!,
+    UIImage(named: "PhotoboothTemplateKakaoPreview.png")!,
+    UIImage(named: "PhotoboothTemplateKakao2.png")!,
+    UIImage(named: "PhotoboothTemplateKakao3Preview.png")!,
+    UIImage(named: "PhotoboothTemplatePhotocardsPreview.png")!,
+    UIImage(named: "PhotoboothTemplatePhotocards2Preview.png")!,
+    UIImage(named: "PhotoboothTemplateKodak.png")!
+]
+let areaSizes = [ // Areas to place the photos in
+    areaSizeSketch,
+    areaSizeKakao,
+    areaSizeKakao2,
+    areaSizeKakao3,
+    areaSizePhotocards,
+    areaSizePhotocards,
+    areaSizeKodak
+]
+let areaSizesPreview = [
+    areaSizeSketch,
+    areaSizeKakaoPreview,
+    areaSizeKakao2,
+    areaSizeKakao3Preview,
+    areaSizePhotocards,
+    areaSizePhotocards,
+    areaSizeKodak
 ]
 
 // Structs
