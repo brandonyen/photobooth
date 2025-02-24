@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Foundation
-import AVFoundation
 
 class PhotoboothViewController: UIViewController {
     // Outlet Variables
@@ -31,7 +29,6 @@ class PhotoboothViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         previewView.contentMode = UIView.ContentMode.scaleAspectFill
-        previewView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(previewView) // Add the camera live view to subview
         view.addSubview(countdownLabel) // Add countdown label to subview
         self.startLiveView() // Start camera live view
@@ -73,6 +70,8 @@ class PhotoboothViewController: UIViewController {
 
             DispatchQueue.main.async {
                 self.previewView.image = image
+                
+                self.previewView.transform = CGAffineTransform(rotationAngle: -.pi / 2)
 
                 // 🔹 Change refresh rate (adjust delay in milliseconds)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.025) {
@@ -212,6 +211,7 @@ class PhotoboothViewController: UIViewController {
             let url = URL(string: try await getLatestImagePathFromCamera() + "?kind=display")!
             let (data, _) = try await URLSession.shared.data(from: url)
             liveViewImageArray[i].image = UIImage(cgImage: (UIImage(data: data)?.cgImage!)!, scale: 1.0, orientation: .left) // set preview image to the image taken
+            self.startLiveView()
         }
         countdownLabel.text = ""
         photoboothSessionInProgress = false

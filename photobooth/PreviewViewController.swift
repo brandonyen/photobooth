@@ -34,6 +34,7 @@ class PreviewViewController: UIViewController {
             UIImage(named: "PhotoboothTemplateKakao3.png")!,
             UIImage(named: "PhotoboothTemplatePhotocards.png")!,
             UIImage(named: "PhotoboothTemplatePhotocards2.png")!,
+            UIImage(named: "PhotoboothTemplateKodak.png")!
         ]
         topImageTemplatePreview = [ // Overlay template array (for previewing)
             UIImage(named: "PhotoboothTemplateSketchPreview.png")!,
@@ -42,6 +43,7 @@ class PreviewViewController: UIViewController {
             UIImage(named: "PhotoboothTemplateKakao3Preview.png")!,
             UIImage(named: "PhotoboothTemplatePhotocardsPreview.png")!,
             UIImage(named: "PhotoboothTemplatePhotocards2Preview.png")!,
+            UIImage(named: "PhotoboothTemplateKodak.png")!
         ]
         areaSizes = [ // Areas to place the photos in
             areaSizeSketch,
@@ -49,7 +51,8 @@ class PreviewViewController: UIViewController {
             areaSizeKakao2,
             areaSizeKakao3,
             areaSizePhotocards,
-            areaSizePhotocards
+            areaSizePhotocards,
+            areaSizeKodak
         ]
         areaSizesPreview = [
             areaSizeSketchPreview,
@@ -57,7 +60,8 @@ class PreviewViewController: UIViewController {
             areaSizeKakao2Preview,
             areaSizeKakao3Preview,
             areaSizePhotocardsPreview,
-            areaSizePhotocardsPreview
+            areaSizePhotocardsPreview,
+            areaSizeKodak
         ]
         Task { // Compile the four images with each template
             try await compileImages()
@@ -87,9 +91,9 @@ class PreviewViewController: UIViewController {
     }
     
     @IBAction func scrollLeft(_ sender: Any) { // View image to the left
-        var newImagePos = (currentImagePos - 1) % 6
+        var newImagePos = (currentImagePos - 1) % 7
         if newImagePos < 0 {
-            newImagePos += 6
+            newImagePos += 7
         }
         UIView.transition(with: self.previewImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.previewImageView.image = self.compiledPreviewImages[newImagePos]}, completion: nil)
         currentImagePos = newImagePos
@@ -97,7 +101,7 @@ class PreviewViewController: UIViewController {
     }
     
     @IBAction func scrollRight(_ sender: Any) { // View image to the right
-        let newImagePos = (currentImagePos + 1) % 6
+        let newImagePos = (currentImagePos + 1) % 7
         UIView.transition(with: self.previewImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.previewImageView.image = self.compiledPreviewImages[newImagePos]}, completion: nil)
         currentImagePos = newImagePos
         numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
