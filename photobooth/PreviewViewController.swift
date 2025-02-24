@@ -38,7 +38,7 @@ class PreviewViewController: UIViewController {
         topImageTemplatePreview = [ // Overlay template array (for previewing)
             UIImage(named: "PhotoboothTemplateSketchPreview.png")!,
             UIImage(named: "PhotoboothTemplateKakaoPreview.png")!,
-            UIImage(named: "PhotoboothTemplateKakao2Preview.png")!,
+            UIImage(named: "PhotoboothTemplateKakao2.png")!,
             UIImage(named: "PhotoboothTemplateKakao3Preview.png")!,
             UIImage(named: "PhotoboothTemplatePhotocardsPreview.png")!,
             UIImage(named: "PhotoboothTemplatePhotocards2Preview.png")!,

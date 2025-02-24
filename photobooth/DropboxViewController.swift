@@ -23,8 +23,6 @@ class DropboxViewController: UIViewController {
     var folderName: String!
     var isCompleted = false
     
-    var imagePrintQueue: [UIImage] = [] // Would use if there was only one printer
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -160,33 +158,6 @@ class DropboxViewController: UIViewController {
             return tasks.url
         }
     }
-    
-    /*
-    func addImagesToQueue() { // Add images to print queue
-        for i in 0...5 {
-            for _ in 0..<numberToPrintArray[i] {
-                imagePrintQueue.append(compiledImages[i])
-            }
-        }
-    }
-    
-    func printImages(pos: Int, imageQueue: [UIImage]) { // Print out images
-        let printCompletionHandler: UIPrintInteractionController.CompletionHandler = { (controller, success, error) -> Void in
-            if success && pos + 1 < imageQueue.count { // If printing was successful and queue is not empty
-                self.printImages(pos: pos+1, imageQueue: imageQueue) // print next image in queue
-                    }
-                }
-        
-        let printController = UIPrintInteractionController.shared
-        let printInfo = UIPrintInfo.printInfo()
-        printInfo.outputType = .photo
-        printInfo.jobName = "Printing"
-        printController.printInfo = printInfo
-        printController.printingItem = imageQueue[pos]
-        
-        printController.print(to: currentPrinter, completionHandler: printCompletionHandler)
-    }
-    */
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is PreviewViewController { // If segue destination is back to preview

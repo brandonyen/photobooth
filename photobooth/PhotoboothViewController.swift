@@ -18,7 +18,7 @@ class PhotoboothViewController: UIViewController {
     @IBOutlet var liveViewImage2: UIImageView!
     @IBOutlet var liveViewImage3: UIImageView!
     @IBOutlet var liveViewImage4: UIImageView!
-    @IBOutlet var previewView: UIView!
+    @IBOutlet var previewView: UIImageView!
     @IBOutlet var countdownLabel: UILabel!
     
     // Variables
@@ -26,21 +26,60 @@ class PhotoboothViewController: UIViewController {
     var currentTask: Task<(), Never>!
     var photoboothSessionInProgress: Bool = false
     var finishedPhotoboothSession: Bool = false
-    
-    // Declaring variables for camera live view from iPad camera
-    var videoDataOutput: AVCaptureVideoDataOutput!
-    var videoDataOutputQueue: DispatchQueue!
-    var previewLayer: AVCaptureVideoPreviewLayer!
-    var captureDevice: AVCaptureDevice!
-    let session = AVCaptureSession()
+    private var isStreaming = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         previewView.contentMode = UIView.ContentMode.scaleAspectFill
+        previewView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(previewView) // Add the camera live view to subview
         view.addSubview(countdownLabel) // Add countdown label to subview
-        self.setupAVCapture() // Start camera live view
+        self.startLiveView() // Start camera live view
         liveViewImageArray = [liveViewImage, liveViewImage2, liveViewImage3, liveViewImage4] // Add the four (empty) UIImages to array
+    }
+    
+    private func startLiveView() {
+        guard let url = URL(string: "http://\(cameraIP)/ccapi/ver100/shooting/liveview") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let body: [String: Any] = ["liveviewsize": "small", "cameradisplay": "on"]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        
+        URLSession.shared.dataTask(with: request) { _, response, error in
+            if let error = error {
+                print("Failed to start live view:", error.localizedDescription)
+                return
+            }
+            print("Live view started successfully:", response ?? "No response")
+            self.isStreaming = true
+            self.fetchFrame()
+        }.resume()
+    }
+
+    private func fetchFrame() {
+        guard isStreaming else { return }
+
+        let timestamp = Int(Date().timeIntervalSince1970 * 1000) // Prevent caching
+        let urlString = "http://\(cameraIP)/ccapi/ver100/shooting/liveview/flip?\(timestamp)"
+        guard let url = URL(string: urlString) else { return }
+
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data, error == nil, let image = UIImage(data: data) else {
+                print("Error fetching frame:", error?.localizedDescription ?? "Unknown error")
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.previewView.image = image
+
+                // 🔹 Change refresh rate (adjust delay in milliseconds)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.025) {
+                    self.fetchFrame()
+                }
+            }
+        }.resume()
     }
     
     @IBAction func photoboothEventHandler(_ sender: Any) { // Start button for photobooth
@@ -102,7 +141,7 @@ class PhotoboothViewController: UIViewController {
     func getLatestImagePathFromCamera() async throws -> String { // Get the url of the latest image stored on the camera
         var folderHTTPPath: String!
         var returnedValue: String!
-        let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/contents/sd")!
+        let url = URL(string: "http://\(cameraIP)/ccapi/ver100/contents/sd")!
         let (data, _) = try await URLSession.shared.data(from: url)
             do {
                 let tasks = try JSONDecoder().decode(urlStruct.self, from: data)
@@ -129,7 +168,7 @@ class PhotoboothViewController: UIViewController {
     }
     
     func takePicture() async throws { // Take picture on camera
-        let url = URL(string: "http://" + ipAddress + ":" + portNumber + "/ccapi/ver100/shooting/control/shutterbutton")!
+        let url = URL(string: "http://\(cameraIP)/ccapi/ver100/shooting/control/shutterbutton")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         let message = Message(af:true)
@@ -190,56 +229,8 @@ class PhotoboothViewController: UIViewController {
             destinationVC.imageArray = imageArray // Send the four images to the view controller
         }
     }
-}
-
-extension PhotoboothViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
-    func setupAVCapture() {
-        session.sessionPreset = AVCaptureSession.Preset.vga640x480
-        guard let device = AVCaptureDevice
-            .default(AVCaptureDevice.DeviceType.builtInWideAngleCamera, for: .video, position: AVCaptureDevice.Position.front) else {
-            return
-        }
-        captureDevice = device
-        beginSession()
-    }
     
-    func beginSession() {
-        var deviceInput: AVCaptureDeviceInput!
-        do {
-            deviceInput = try AVCaptureDeviceInput(device: captureDevice)
-            guard deviceInput != nil else {
-                print("Error: Can't get deviceInput")
-                return
-            }
-
-            if self.session.canAddInput(deviceInput){
-                self.session.addInput(deviceInput)
-            }
-
-            videoDataOutput = AVCaptureVideoDataOutput()
-            videoDataOutput.alwaysDiscardsLateVideoFrames=true
-            videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
-            videoDataOutput.setSampleBufferDelegate(self, queue:self.videoDataOutputQueue)
-
-            if session.canAddOutput(self.videoDataOutput){
-                session.addOutput(self.videoDataOutput)
-            }
-                    
-            videoDataOutput.connection(with: .video)?.isEnabled = true
-
-            previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
-            previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-
-            let rootLayer :CALayer = self.previewView.layer
-            rootLayer.masksToBounds=true
-            previewLayer.frame = rootLayer.bounds
-            rootLayer.addSublayer(self.previewLayer)
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.session.startRunning()
-            }
-        } catch let error as NSError {
-            deviceInput = nil
-            print("error: \(error.localizedDescription)")
-        }
+    deinit {
+        isStreaming = false
     }
 }

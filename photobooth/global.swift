@@ -9,12 +9,7 @@ import Foundation
 import UIKit
 
 // Global variables
-var ipAddress = "" // Camera IP address
-var portNumber = "" // Camera port number
-let printer1URL = URL(string: config.printer_ip)! // URL of printer 1
-let printer2URL = URL(string: config.printer_2_ip)! // URL of printer 2
-let printer1 = UIPrinter(url: printer1URL) // UIPrinter with URL of printer
-let printer2 = UIPrinter(url: printer2URL)  // UIPrinter with URL of printer
+var cameraIP = "" // Camera IP address and port number
 
 // Areas to draw the four taken images in, for each template
 let areaSizeSketch: [CGRect] = [
