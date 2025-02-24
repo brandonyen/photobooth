@@ -74,8 +74,7 @@ class PhotoboothViewController: UIViewController {
                 
                 self.previewView.transform = CGAffineTransform(rotationAngle: -.pi / 2)
 
-                // 🔹 Change refresh rate (adjust delay in milliseconds)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.025) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     self.fetchFrame()
                 }
             }
