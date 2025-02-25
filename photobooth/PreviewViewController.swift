@@ -1,15 +1,8 @@
-//
-//  PreviewViewController.swift
-//  photobooth
-//
-//  Created by Brandon Yen on 2/6/24.
-//
-
 import UIKit
 import Foundation
 
 class PreviewViewController: UIViewController {
-    // Outlet variables
+    // Outlets
     @IBOutlet var previewImageView: UIImageView!
     @IBOutlet var numberToPrintLabel: UILabel!
     
@@ -23,115 +16,97 @@ class PreviewViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        Task { // Compile the four images with each template
+        Task {
             try await compileImages()
             try await compilePreviewImages()
         }
     }
     
     @IBAction func toDropbox(_ sender: Any) {
-        let alertController = UIAlertController(title: "Enter your name", message: "Please enter a name for photo pickup.", preferredStyle: .alert)
-
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Name..."
-        }
-
-        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
-            let inputName = alertController.textFields![0].text
-            self.pickupName = inputName
+        presentNameAlert { name in
+            self.pickupName = name
             self.performSegue(withIdentifier: "toDropbox", sender: nil)
         }
-        alertController.addAction(saveAction)
-
-        present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func backToPhotobooth(_ sender: Any) {
         performSegue(withIdentifier: "cancelPreview", sender: nil)
     }
     
-    @IBAction func scrollLeft(_ sender: Any) { // View image to the left
-        var newImagePos = (currentImagePos - 1) % numTemplates
-        if newImagePos < 0 {
-            newImagePos += numTemplates
-        }
-        UIView.transition(with: self.previewImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.previewImageView.image = self.compiledPreviewImages[newImagePos]}, completion: nil)
-        currentImagePos = newImagePos
-        numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
+    @IBAction func scrollLeft(_ sender: Any) {
+        updateImagePosition(by: -1)
     }
     
-    @IBAction func scrollRight(_ sender: Any) { // View image to the right
-        let newImagePos = (currentImagePos + 1) % numTemplates
-        UIView.transition(with: self.previewImageView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.previewImageView.image = self.compiledPreviewImages[newImagePos]}, completion: nil)
-        currentImagePos = newImagePos
-        numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
+    @IBAction func scrollRight(_ sender: Any) {
+        updateImagePosition(by: 1)
     }
     
-    @IBAction func addPhoto(_ sender: Any) { // Adds 1 to the amount to print of that image
-        numberToPrintArray[currentImagePos] += 1
-        numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
+    @IBAction func addPhoto(_ sender: Any) {
+        updatePhotoCount(by: 1)
     }
     
-    @IBAction func removePhoto(_ sender: Any) { // Removes 1 to the amount to print of that image
-        if numberToPrintArray[currentImagePos] != 0 {
-            numberToPrintArray[currentImagePos] -= 1
-            numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
-        }
+    @IBAction func removePhoto(_ sender: Any) {
+        updatePhotoCount(by: -1)
     }
     
-    func compileImages() async throws { // Compile four images and templates
-        let firstImage = imageArray[0]
-        let secondImage = imageArray[1]
-        let thirdImage = imageArray[2]
-        let fourthImage = imageArray[3]
-        let size = CGSize(width: 1800, height: 2700)
-        let areaSizeTopImage = CGRect(x: 0, y: 0, width: 1800, height: 2700)
-        
-        for i in 0...(topImageTemplate.count - 1) {
-            UIGraphicsBeginImageContext(size)
-            firstImage.draw(in: areaSizes[i][0])
-            secondImage.draw(in: areaSizes[i][1])
-            thirdImage.draw(in: areaSizes[i][2])
-            fourthImage.draw(in: areaSizes[i][3])
-            topImageTemplate[i].draw(in: areaSizeTopImage, blendMode: .normal, alpha: 1)
-            let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-            UIGraphicsEndImageContext()
-            compiledImages.append(newImage)
-        }
+    func compileImages() async throws {
+        compileImageSet(templates: topImageTemplate, areaSize: areaSizes, into: &compiledImages)
     }
     
-    func compilePreviewImages() async throws { // Compile four images and preview templates
-        let firstImage = imageArray[0]
-        let secondImage = imageArray[1]
-        let thirdImage = imageArray[2]
-        let fourthImage = imageArray[3]
-        let size = CGSize(width: 1800, height: 2700)
-        let areaSizeTopImage = CGRect(x: 0, y: 0, width: 1800, height: 2700)
-        
-        for i in 0...(topImageTemplatePreview.count - 1) {
-            UIGraphicsBeginImageContext(size)
-            firstImage.draw(in: areaSizesPreview[i][0])
-            secondImage.draw(in: areaSizesPreview[i][1])
-            thirdImage.draw(in: areaSizesPreview[i][2])
-            fourthImage.draw(in: areaSizesPreview[i][3])
-            topImageTemplatePreview[i].draw(in: areaSizeTopImage, blendMode: .normal, alpha: 1)
-            let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-            UIGraphicsEndImageContext()
-            compiledPreviewImages.append(newImage)
-        }
-        
-        previewImageView.image = compiledPreviewImages[0] // Display first image
+    func compilePreviewImages() async throws {
+        compileImageSet(templates: topImageTemplatePreview, areaSize: areaSizesPreview, into: &compiledPreviewImages)
+        previewImageView.image = compiledPreviewImages.first
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is DropboxViewController { // If segue destination is dropbox view controller
-            let destinationVC = segue.destination as! DropboxViewController
-            // Send images, preview images, four photos taken, and the number of each image to print to the dropbox view controller
+        if let destinationVC = segue.destination as? DropboxViewController {
             destinationVC.compiledImages = compiledImages
             destinationVC.numberToPrintArray = numberToPrintArray
             destinationVC.compiledPreviewImages = compiledPreviewImages
             destinationVC.imageArray = imageArray
             destinationVC.pickupName = pickupName
+        }
+    }
+    
+    private func presentNameAlert(completion: @escaping (String) -> Void) {
+        let alertController = UIAlertController(title: "Enter your name", message: "Please enter a name for photo pickup.", preferredStyle: .alert)
+        alertController.addTextField { $0.placeholder = "Name..." }
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+            if let name = alertController.textFields?.first?.text {
+                completion(name)
+            }
+        }
+        alertController.addAction(saveAction)
+        present(alertController, animated: true)
+    }
+    
+    private func updateImagePosition(by offset: Int) {
+        currentImagePos = (currentImagePos + offset + numTemplates) % numTemplates
+        UIView.transition(with: previewImageView, duration: 0.3, options: .transitionCrossDissolve) {
+            self.previewImageView.image = self.compiledPreviewImages[self.currentImagePos]
+        }
+        numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
+    }
+    
+    private func updatePhotoCount(by amount: Int) {
+        numberToPrintArray[currentImagePos] = max(0, numberToPrintArray[currentImagePos] + amount)
+        numberToPrintLabel.text = String(numberToPrintArray[currentImagePos])
+    }
+    
+    private func compileImageSet(templates: [UIImage], areaSize: [[CGRect]], into array: inout [UIImage]) {
+        let size = CGSize(width: 1800, height: 2700)
+        let areaSizeTopImage = CGRect(origin: .zero, size: size)
+        
+        for (index, template) in templates.enumerated() {
+            UIGraphicsBeginImageContext(size)
+            imageArray.enumerated().forEach { idx, image in
+                image.draw(in: areaSize[index][idx])
+            }
+            template.draw(in: areaSizeTopImage)
+            if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+                array.append(newImage)
+            }
+            UIGraphicsEndImageContext()
         }
     }
 }
