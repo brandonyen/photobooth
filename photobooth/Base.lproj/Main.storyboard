@@ -249,7 +249,6 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
-                        <outlet property="connectButton" destination="mIf-RV-tqs" id="heW-EU-RKw"/>
                         <outlet property="ipAddressField" destination="aWE-Zh-0XD" id="U18-c0-oE5"/>
                         <segue destination="UK5-tO-1jW" kind="presentation" identifier="didConnectToCamera" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="gR9-v9-wYA"/>
                     </connections>

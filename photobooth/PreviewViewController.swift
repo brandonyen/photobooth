@@ -1,5 +1,4 @@
 import UIKit
-import Foundation
 
 class PreviewViewController: UIViewController {
     // Outlets

@@ -1,9 +1,7 @@
 import UIKit
-import Foundation
 
 class ViewController: UIViewController {
     // Outlet Variables
-    @IBOutlet weak var connectButton: UIButton!
     @IBOutlet var ipAddressField: UITextField!
     
     override func viewDidLoad() {
