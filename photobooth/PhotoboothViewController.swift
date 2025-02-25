@@ -1,10 +1,3 @@
-//
-//  PhotoboothViewController.swift
-//  photobooth
-//
-//  Created by Brandon Yen on 2/4/24.
-//
-
 import UIKit
 
 class PhotoboothViewController: UIViewController {

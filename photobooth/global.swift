@@ -1,10 +1,3 @@
-//
-//  global.swift
-//  photobooth
-//
-//  Created by Brandon Yen on 2/22/24.
-//
-
 import Foundation
 import UIKit
 

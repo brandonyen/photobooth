@@ -1,10 +1,3 @@
-//
-//  DropboxViewController.swift
-//  photobooth
-//
-//  Created by Brandon Yen on 2/10/24.
-//
-
 import Foundation
 import UIKit
 

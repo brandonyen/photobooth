@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  photobooth
-//
-//  Created by Brandon Yen on 2/2/24.
-//
-
 import UIKit
 import Foundation
 
