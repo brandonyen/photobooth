@@ -67,7 +67,7 @@ class PhotoboothViewController: UIViewController {
                 
                 self.previewView.transform = CGAffineTransform(rotationAngle: -.pi / 2)
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.fetchFrame()
                 }
             }
@@ -212,6 +212,8 @@ class PhotoboothViewController: UIViewController {
         
         countdownLabel.text = "Please wait..."
         try await Task.sleep(nanoseconds: 1_000_000_000)
+        
+        isStreaming = false
         
         let imageURL = try await getLatestImagePathFromCamera() + "?kind=display"
         let (data, _) = try await URLSession.shared.data(from: URL(string: imageURL)!)
