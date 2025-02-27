@@ -65,7 +65,7 @@ class PhotoboothViewController: UIViewController {
             DispatchQueue.main.async {
                 self.previewView.image = image
                 
-                self.previewView.transform = CGAffineTransform(rotationAngle: -.pi / 2)
+                self.previewView.transform = CGAffineTransform(rotationAngle:.pi / 2)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                     self.fetchFrame()

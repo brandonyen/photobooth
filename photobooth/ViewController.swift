@@ -15,10 +15,10 @@ class ViewController: UIViewController {
             data, response, error in
             
             if let response = response as? HTTPURLResponse {
-                if response.statusCode == 200 { // If HTTP response from camera is 200 (no errors)
+                if response.statusCode == 200 {
                     DispatchQueue.main.async {
-                        cameraIP = self.ipAddressField.text! // Set global variables to inputted variables
-                        self.performSegue(withIdentifier: "didConnectToCamera", sender: nil) // Move to photobooth viewcontroller
+                        cameraIP = self.ipAddressField.text!
+                        self.performSegue(withIdentifier: "didConnectToCamera", sender: nil)
                     }
                 }
             }
